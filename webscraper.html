@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>WebScraper</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<div class="inner">
+
+							<!-- Logo -->
+								<a href="index.html" class="logo">
+									<span class="symbol"><img src="images/logo.svg" alt="" /></span><span class="title">Portfolio</span>
+								</a>
+
+							<!-- Nav -->
+								<nav>
+									<ul>
+										<li><a href="#menu">Menu</a></li>
+									</ul>
+								</nav>
+
+						</div>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<h2>Menu</h2>
+						<ul>
+							<li><a href="index.html">Home</a></li>
+							<!-- <li><a href="about_myself.html">About Me</a></li> -->
+							<li><a href="other_projects.html">Other Projects</a></li>
+							<li><a href="uni_modules.html">University Modules</a></li>
+							<li><a href="contact.html">Contact</a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+							<h1>WebScraper</h1>
+							<span class="image main"><img src="images/Webscraper (Wide).jpg" alt="" /></span>
+							<p>
+								This project was done in my spare time, as I was interested in coding a web scraper for some time. I've looked at some websites but ended up choosing eBay as my scraping target.
+
+							</p>
+
+							<h3>
+								Idea
+							</h3>
+
+							<p>
+								The idea was simple. Build a program to grab product information from eBay and put it in an Excel file.<br>
+								There are multiple ways to do this, but I decided on using Python and a popular package named 'Beautiful Soup'. This package makes it far easier to parse the HTML and XML documents and extract the data.
+
+							</p>
+
+							<h3>
+								Coding
+							</h3>
+
+							<p>
+								The project was done using VS Code wich I am fairly familiar with. However, there were a few concepts new to me, such as parsing through HTML, finding the correct information as well as storing it in an organised manner.<br>
+								I used the inspect tool every browser has, and find my data on the HTML files. The code can also extract data from multiple pages, meaning thousands of products as each page displays around 60.<br>
+								I also had to 'sculpt' the information as there were things, say, in the title that I did not need and restricting the length of certain data categories. The filtering of useless information was barely surface level.
+							</p>
+
+							<h3>
+								Conclusion
+							</h3>
+
+							<p>
+								This project reminded me of the Python syntax as I haven't worked with the language in some time. But, it was also a great opportunity to learn new concepts, which I plan to use on a similar web scraper, with a different target website, and hopefully better information filtering.
+							</p>
+
+							<h3>
+								Files
+							</h3>
+
+							<p>
+								The code is available on a <a href="https://github.com/eusebiuxii/ebay-webscraper">GitHub</a> repository. There is no documentation to go with it, as the project is not the same size as some of the others. It does, however, have comments throughout the code and should indicate what each part of the code is for.
+							</p>
+
+						</div>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
