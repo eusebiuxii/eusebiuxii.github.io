@@ -48,21 +48,43 @@
 						<div class="inner">
 							<h1>Contact</h1>
 							<span class="image main"><img src="images/pic13.jpg" alt="" /></span>
+							<form action="contact_form.php" method="post">
 
-							<p>This page is still a work in progress. For now, you can contact me through social media</p>
+            					<div class="row gtr-uniform">
+									<div class="col-6 col-12-xsmall">
+										<input type="text" name="Name" id="Name" value="" placeholder="Full Name" />
+									</div>
+									<div class="col-6 col-12-xsmall">
+										<input type="email" name="Email" id="Email" value="" placeholder="Email Address" />
+									</div>
+									<div class="col-12">
+										<textarea name="Message" id="Message" placeholder="Enter your message" rows="6"></textarea>
+									</div>
+									<div class ="col-12">
+										<button type="submit" name = "submit">Send</button>
+									</div>
+       				 			</div>
+							</form>
 
-							<h3><a href="http://linkedin.com/in/sebimoldovan">linkedIn</a></h3>
-
-							<h3><a href="https://www.instagram.com/eusebiuxii/">Instagram</a></h3>
-
-							<h3><a href="https://github.com/eusebiuxii">GitHub</a></h3>
-
-							<h3> Email </h3>	
-							
 						</div>
 					</div>
-			</div>
 
+				<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							<section>
+								<h2>Follow me</h2>
+								<ul class="icons">
+									<li><a href="http://linkedin.com/in/sebimoldovan" class="icon brands style2 fa-linkedin"><span class="label">linkedIn</span></a></li>
+									<li><a href="https://www.instagram.com/eusebiuxii/" class="icon brands style2 fa-instagram"><span class="label">Instagram</span></a></li>
+									<li><a href="https://github.com/eusebiuxii" class="icon brands style2 fa-github"><span class="label">GitHub</span></a></li>
+									<li><a href="https://leetcode.com/eusebiuxii/" class="icon solid style2 fa-code"><span class="label">LeetCode</span></a></li>
+									<li><a href="contact.html" class="icon solid style2 fa-envelope"><span class="label">Email</span></a></li>
+								</ul>
+							</section>
+						</div>
+					</footer>
+			</div>
 		<!-- Scripts -->
 			<script src="assets/js/jquery.min.js"></script>
 			<script src="assets/js/browser.min.js"></script>
