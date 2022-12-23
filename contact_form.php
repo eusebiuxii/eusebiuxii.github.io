@@ -3,7 +3,11 @@
 		<title>Contact</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
+
+		<link rel="stylesheet" href="assets/css/mainLight.css" media="(prefers-color-scheme: light)"/>
+		<link rel="stylesheet" href="assets/css/main.css" media="(prefers-color-scheme: dark)"/>
+		<link rel="icon" type="svg+xml" href="images/logo.svg"/>
+        
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 	</head>
 </html>

@@ -5,7 +5,11 @@
 		<title>Seb's Portfolio</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
+
+		<link rel="stylesheet" href="assets/css/mainLight.css" media="(prefers-color-scheme: light)"/>
+		<link rel="stylesheet" href="assets/css/main.css" media="(prefers-color-scheme: dark)"/>
+		<link rel="icon" type="svg+xml" href="images/logo.svg"/>
+
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 	</head>
 	<body class="is-preload">
@@ -15,43 +19,6 @@
 				<!-- Header -->
 					<header id="header">
 						<div class="inner">
-
-							<!-- Dark Mode Switch
-							<style>
-								.mode{
-									float: right
-
-								}
-								.change{
-									cursor: pointer;
-								}
-								.dark{
-									background-color: #222;
-									color: #e6e6e6;
-								}
-							</style>
-
-							<script>
-								$( ".change") .on("click", function() {
-									if( $("body").hasClass("dark")){
-										$("body").removeClass("dark")
-										$(".change").text("OFF");
-									} else {
-										$("body").addClass("dark");
-										$(".change").text("ON");
-									}
-								});
-							</script>
-							
-							<div class = "mode" >
-								<span>
-									<a>Dark mode: </a><a class = "change">OFF</a>
-								</span>
-							</div>
-							-->
-
-
-
 							<!-- Logo -->
 								<a href="index.html" class="logo">
 									<span class="symbol"><img src="images/logo.svg" alt="" /></span><span class="title">Portfolio</span>
@@ -95,7 +62,7 @@
 									<span class="image">
 										<img src="images/Hero Knight/HeroKnight (Narrow).png"/>
 									</span>
-									<a href="hero_knight.html">
+									<a href="heroKnight.html">
 										<h2>Hero Knight</h2>
 										<div class="content">
 											<p style="background-color: rgb(37,37,37, 0.75);border-radius: 7px">A 2D, <b>pixel art game</b> developed in <b>Unity</b> </p>
@@ -122,7 +89,19 @@
 									<a href="fortuna.html">
 										<h2>Fortuna</h2>
 										<div class="content">
-											<p style="background-color: rgb(37,37,37, 0.75);border-radius: 7px">Game developed for <b>IOS</b> using <b>Xcode</b>. Inspired by the <b>Wheel of Fortune</b> show</p>
+											<p style="background-color: rgb(37,37,37, 0.75);border-radius: 7px">Game developed for <b>iOS</b> using <b>Xcode</b>. Inspired by the <b>Wheel of Fortune</b> show</p>
+										</div>
+									</a>
+								</article>
+
+								<article class="style10">
+									<span class="image">
+										<img src="images/NewBrightonMurals/NewBrightonMurals (Narrow).png"/>
+									</span>
+									<a href="newBrightonMurals.html">
+										<h2 style="background-color: rgb(37,37,37, 0.75);border-radius: 7px">New Brighton Murals</h2>
+										<div class="content">
+											<p style="background-color: rgb(37,37,37, 0.75);border-radius: 7px">An app made for <b>iOS</b>, allowing a user to see the <b>murals</b> of <b>New Brighton</b> </p>
 										</div>
 									</a>
 								</article>
@@ -130,18 +109,6 @@
 								<article class="style10">
 									<span class="image">
 										<img src="images/pic04.jpg"/>
-									</span>
-									<a href="generic.html">
-										<h2>...</h2>
-										<div class="content">
-											<p style="background-color: rgb(37,37,37, 0.75);border-radius: 7px">For future projects</b> </p>
-										</div>
-									</a>
-								</article>
-
-								<article class="style10">
-									<span class="image">
-										<img src="images/pic05.jpg"/>
 									</span>
 									<a href="generic.html">
 										<h2>...</h2>

@@ -5,7 +5,11 @@
 		<title>Web Scraper</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
+
+		<link rel="stylesheet" href="assets/css/mainLight.css" media="(prefers-color-scheme: light)"/>
+		<link rel="stylesheet" href="assets/css/main.css" media="(prefers-color-scheme: dark)"/>
+		<link rel="icon" type="svg+xml" href="images/logo.svg"/>
+
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 	</head>
 	<body class="is-preload">
@@ -49,50 +53,50 @@
 							<h1>WebScraper</h1>
 							<span class="image main"><img src="images/Webscraper/Webscraper (Wide).jpg" alt="" /></span>
 							
-							<h3>
-								Introduction
-							</h3>
+							<h3>Idea & Introduction</h3>
 							
 							<p>
-								This project was done in my spare time, as I was interested in coding a web scraper for some time. I've looked at some websites but ended up choosing eBay as my scraping target.
-
-							</p>
-
-							<h3>
-								Idea
-							</h3>
-
-							<p>
+								This project was done in my spare time, as I was interested in coding a web scraper for some time. I've looked 
+								at some websites but ended up choosing eBay as my scraping target.
 								The idea was simple. Build a program to grab product information from eBay and put it in an Excel file.<br>
-								There are multiple ways to do this, but I decided on using Python and a popular package named 'Beautiful Soup'. This package makes it far easier to parse the HTML and XML documents and extract the data.
-
+								There are multiple ways to do this, but I decided on using Python and a popular package named 'Beautiful Soup'. 
+								This package makes it far easier to parse the HTML and XML documents and extract the data.
 							</p>
 
-							<h3>
-								Coding
-							</h3>
+							<h3>Technologies Used</h3>
+
+							<ul>
+								<li>Developed using Python</li>
+								<li>Package called 'Beautiful Soup' facilitates pulling the data out of XML and HTML files</li>
+								<li>Data is stored into an Excel file</li>
+							</ul>
+
+							<h3>Notable Features</h3>
+
+							<ul>
+								<li>The code takes no input from the user to run</li>
+								<li>Web scraper is tailored to scrape data from a specific URL</li>
+								<li>You can change the amount of web pages from which you want to scrape data from</li>
+							</ul>
+
+							<h3>Conclusion</h3>
 
 							<p>
-								The project was done using VS Code wich I am fairly familiar with. However, there were a few concepts new to me, such as parsing through HTML, finding the correct information as well as storing it in an organised manner.<br>
-								I used the inspect tool every browser has, and find my data on the HTML files. The code can also extract data from multiple pages, meaning thousands of products as each page displays around 60.<br>
-								I also had to 'sculpt' the information as there were things, say, in the title that I did not need and restricting the length of certain data categories. The filtering of useless information was barely surface level.
+								Small project but definetly helped with learning more about HTML and XML structures, as well as retrieving 
+								data from the web. It had been a while since I've worked with Python so this project idea was definetly a 
+								good way to re-introduce the language. I plan on doing a better frontend for the project, as I haven't done 
+								UI in Python yet.
 							</p>
 
-							<h3>
-								Conclusion
-							</h3>
-
-							<p>
-								This project reminded me of the Python syntax as I haven't worked with the language in some time. But, it was also a great opportunity to learn new concepts, which I plan to use on a similar web scraper, with a different target website, and hopefully better information filtering.
-							</p>
-
-							<h3>
-								Files
-							</h3>
+							<h3>Files</h3>
 
 							<p>
 								The code is available on a <a href="https://github.com/eusebiuxii/ebay-webscraper">GitHub</a> repository. There is no documentation to go with it, as the project is not the same size as some of the others. It does, however, have comments throughout the code and should indicate what each part of the code is for.
 							</p>
+
+							<ul class = "icons">
+								<li><a href="https://github.com/eusebiuxii/ebay-webscraper" class="icon brands style2 fa-github"><span class="label">GitHub</span></a></li>
+							</ul>
 
 						</div>
 					</div>

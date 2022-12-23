@@ -1,0 +1,120 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>New Brighton Murals</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+
+		<link rel="stylesheet" href="assets/css/mainLight.css" media="(prefers-color-scheme: light)"/>
+		<link rel="stylesheet" href="assets/css/main.css" media="(prefers-color-scheme: dark)"/>
+		<link rel="icon" type="svg+xml" href="images/logo.svg"/>
+
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<div class="inner">
+
+							<!-- Logo -->
+								<a href="index.html" class="logo">
+									<span class="symbol"><img src="images/logo.svg" alt="" /></span><span class="title">Portfolio</span>
+								</a>
+
+							<!-- Nav -->
+								<nav>
+									<ul>
+										<li><a href="#menu">Menu</a></li>
+									</ul>
+								</nav>
+
+						</div>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<h2>Menu</h2>
+						<ul>
+							<li><a href="index.html">Home</a></li>
+							<!-- <li><a href="about_myself.html">About Me</a></li> -->
+							<li><a href="other_projects.html">Other Projects</a></li>
+							<li><a href="uni_modules.html">University Modules</a></li>
+							<li><a href="contact.html">Contact</a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+							<h1>New Brighton Murals</h1>
+							<span class="image main"><img src="images/pic13.jpg" alt="" /></span>
+
+							<h3>Idea & Introduction</h3>
+
+							<p>
+								This app was made for a University assignment. It should retrieve data from an API in the form of JSON and put 
+								the data into custom objects called Murals.<br> The murals would each have a title, artist, latitude and longitude, 
+								thumbnails, and other details. The app saves them onto a map and a table allowing the user to access more details about them.
+							</p>
+							
+							<h3>Documentation & Coding</h3>
+
+							<p>
+								Made for iOS 16.0 so I used Xcode and Swift. Fetching data from the specific URL, putting it in the correct 
+								objects and displaying it to the user was most of the project. The polishing and addition of features, as well as 
+								simulating a walk using a GPX file, allowing me to test it.<br>
+								I also made a one page document detailing how the interface works, although I trust that the interface is fairly intuitive.
+							</p>
+
+							<h3>Technologies Used</h3>
+
+							<ul>
+								<li>Xcode IDE, coded using Swift and interface made using Storyboard</li>
+								<li>Custom API as this was made for an assignment</li>
+								<li>Decoding the objects from JSON data files</li>
+								<li>Map is provided by Xcode as MapKit and CoreLocation</li>
+								<li>The user 'walking' is simulated using a GPX file</li>
+							</ul>
+
+							<h3>Notable features</h3>
+
+							<ul>
+								<li>Mural objects are fetched from a custom API</li>
+								<li>App contains a Map showing location of murals and user, along with a table of those murals</li>
+								<li>Each mural is annotated on the map and put in the table</li>
+								<li>Table is ordered depending on the distance between the user and each mural</li>
+								<li>The user can see details about each mural, such as the title, artist, info and images</li>
+								<li>The images of the murals are animated. Pictures shown of a mural switch every 2 seconds or so</li>
+							</ul>
+
+							<h3>Files</h3>
+
+							<p>
+								Below you can find the <a href="https://github.com/eusebiuxii/NewBrightonMurals">GitHub repository</a>, 
+								as well as a <a href="Documents/NewbrightonMurals - Explained.pdf">one page document</a> detailing how the interface of the app works, in case you do not find 
+								it very intuitive. Keep in mind the app can only be run on MacOS and the app is not available on the App Store.
+							</p>
+							
+							<ul class = "icons">
+							<li><a href="https://github.com/eusebiuxii/NewBrightonMurals" class="icon brands style2 fa-github"><span class="label">GitHub</span></a></li>
+							<li><a href="Documents/NewbrightonMurals - Explained.pdf" class="icon solid style2 fa-file"><span class="label">Document</span></a></li>
+							</ul>
+
+						</div>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
