@@ -43,6 +43,7 @@
 							<!-- <li><a href="about_myself.html">About Me</a></li> -->
 							<li><a href="other_projects.html">Other Projects</a></li>
 							<li><a href="uni_modules.html">University Modules</a></li>
+							<li><a href="about_myself.html">About Me</a></li>
 							<li><a href="contact.html">Contact</a></li>
 						</ul>
 					</nav>
@@ -50,30 +51,111 @@
 				<!-- Main -->
 					<div id="main">
 						<div class="inner">
-							<h1>Contact</h1>
-							<span class="image main"><img src="images/pic13.jpg" alt="" /></span>
-							<form action="contact_form.php" method="post">
 
-            					<div class="row gtr-uniform">
-									<div class="col-6 col-12-xsmall">
-										<input type="text" name="Name" id="Name" value="" placeholder="Full Name" />
-									</div>
-									<div class="col-6 col-12-xsmall">
-										<input type="email" name="Email" id="Email" value="" placeholder="Email Address" />
-									</div>
-									<div class="col-12">
-										<textarea name="Message" id="Message" placeholder="Enter your message" rows="6"></textarea>
-									</div>
-									<div class ="col-12">
-										<button type="submit" name = "submit">Send</button>
-									</div>
-       				 			</div>
-							</form>
-							<br>
-							<br>
-							<br>	<!-- Used to distance the footer from the form -->
-							<br>
-							<br>
+							<header>
+								<h1>Contact Form</h1>
+								<p>Fill this out and use it to contact me about ideas, offers, collaborations, etc.</p>
+							</header>
+
+							<!-- Code for the form starts-->			
+							<iframe
+							id="JotFormIFrame-232996360364060"
+							title="Contact Form"
+							onload="window.parent.scrollTo(0,0)"
+							allowtransparency="true"
+							allowfullscreen="true"
+							allow="geolocation; microphone; camera"
+							src="https://form.jotform.com/232996360364060"
+							frameborder="0"
+							style="min-width:100%;max-width:100%;height:539px;border:none;"
+							scrolling="no"
+							>
+							</iframe>
+							<script type="text/javascript">
+							var ifr = document.getElementById("JotFormIFrame-232996360364060");
+							if (ifr) {
+								var src = ifr.src;
+								var iframeParams = [];
+								if (window.location.href && window.location.href.indexOf("?") > -1) {
+								iframeParams = iframeParams.concat(window.location.href.substr(window.location.href.indexOf("?") + 1).split('&'));
+								}
+								if (src && src.indexOf("?") > -1) {
+								iframeParams = iframeParams.concat(src.substr(src.indexOf("?") + 1).split("&"));
+								src = src.substr(0, src.indexOf("?"))
+								}
+								iframeParams.push("isIframeEmbed=1");
+								ifr.src = src + "?" + iframeParams.join('&');
+							}
+							window.handleIFrameMessage = function(e) {
+								if (typeof e.data === 'object') { return; }
+								var args = e.data.split(":");
+								if (args.length > 2) { iframe = document.getElementById("JotFormIFrame-" + args[(args.length - 1)]); } else { iframe = document.getElementById("JotFormIFrame"); }
+								if (!iframe) { return; }
+								switch (args[0]) {
+								case "scrollIntoView":
+									iframe.scrollIntoView();
+									break;
+								case "setHeight":
+									iframe.style.height = args[1] + "px";
+									if (!isNaN(args[1]) && parseInt(iframe.style.minHeight) > parseInt(args[1])) {
+									iframe.style.minHeight = args[1] + "px";
+									}
+									break;
+								case "collapseErrorPage":
+									if (iframe.clientHeight > window.innerHeight) {
+									iframe.style.height = window.innerHeight + "px";
+									}
+									break;
+								case "reloadPage":
+									window.location.reload();
+									break;
+								case "loadScript":
+									if( !window.isPermitted(e.origin, ['jotform.com', 'jotform.pro']) ) { break; }
+									var src = args[1];
+									if (args.length > 3) {
+										src = args[1] + ':' + args[2];
+									}
+									var script = document.createElement('script');
+									script.src = src;
+									script.type = 'text/javascript';
+									document.body.appendChild(script);
+									break;
+								case "exitFullscreen":
+									if      (window.document.exitFullscreen)        window.document.exitFullscreen();
+									else if (window.document.mozCancelFullScreen)   window.document.mozCancelFullScreen();
+									else if (window.document.mozCancelFullscreen)   window.document.mozCancelFullScreen();
+									else if (window.document.webkitExitFullscreen)  window.document.webkitExitFullscreen();
+									else if (window.document.msExitFullscreen)      window.document.msExitFullscreen();
+									break;
+								}
+								var isJotForm = (e.origin.indexOf("jotform") > -1) ? true : false;
+								if(isJotForm && "contentWindow" in iframe && "postMessage" in iframe.contentWindow) {
+								var urls = {"docurl":encodeURIComponent(document.URL),"referrer":encodeURIComponent(document.referrer)};
+								iframe.contentWindow.postMessage(JSON.stringify({"type":"urls","value":urls}), "*");
+								}
+							};
+							window.isPermitted = function(originUrl, whitelisted_domains) {
+								var url = document.createElement('a');
+								url.href = originUrl;
+								var hostname = url.hostname;
+								var result = false;
+								if( typeof hostname !== 'undefined' ) {
+								whitelisted_domains.forEach(function(element) {
+									if( hostname.slice((-1 * element.length - 1)) === '.'.concat(element) ||  hostname === element ) {
+										result = true;
+									}
+								});
+								return result;
+								}
+							};
+							if (window.addEventListener) {
+								window.addEventListener("message", handleIFrameMessage, false);
+							} else if (window.attachEvent) {
+								window.attachEvent("onmessage", handleIFrameMessage);
+							}
+							</script>
+
+							<!-- Code for the form finishes-->
 
 						</div>
 					</div>
@@ -82,13 +164,22 @@
 					<footer id="footer">
 						<div class="inner">
 							<section>
-								<h2>Follow me</h2>
-								<ul class="icons">
-									<li><a href="http://linkedin.com/in/sebimoldovan" class="icon brands style2 fa-linkedin"><span class="label">linkedIn</span></a></li>
-									<li><a href="https://www.instagram.com/eusebiuxii/" class="icon brands style2 fa-instagram"><span class="label">Instagram</span></a></li>
-									<li><a href="https://github.com/eusebiuxii" class="icon brands style2 fa-github"><span class="label">GitHub</span></a></li>
-									<li><a href="https://leetcode.com/eusebiuxii/" class="icon solid style2 fa-code"><span class="label">LeetCode</span></a></li>
-									<li><a href="contact.html" class="icon solid style2 fa-envelope"><span class="label">Email</span></a></li>
+								<h2>Social media</h2>
+								<ul class="actions">
+									<li><a href="http://linkedin.com/in/sebimoldovan" target="_blank" rel="noopener noreferrer" class="button icon brands fa-linkedin">LinkedIn</a></li>
+									<li><a href="https://www.instagram.com/eusebiuxii/" target="_blank" rel="noopener noreferrer" class="button icon brands fa-instagram">Insta</a></li>
+									<li><a href="https://github.com/eusebiuxii" target="_blank" rel="noopener noreferrer" class="button icon brands fa-github">GitHub</a></li>
+								</ul>
+								<ul class="actions">
+									<li><a href="https://leetcode.com/eusebiuxii/" target="_blank" rel="noopener noreferrer" class="button icon solid fa-code">Leetcode</a></li>
+									<li><a href="https://eusebiuxii.itch.io" target="_blank" rel="noopener noreferrer" class="button icon brands fa-itch-io">Itch.io</a></li>
+								</ul>
+							</section>
+							<section>
+								<h2>CV & Contact Form</h2>
+								<ul class="actions">
+									<li><a href="Documents/Eusebiu M - CV (Public).pdf" target="_blank" rel="noopener noreferrer" class="button icon fa-user">CV/Resume</a></li>
+									<li><a href="contact.html" target="_blank" rel="noopener noreferrer" class="button icon fa-file">Contact Form</a></li>
 								</ul>
 							</section>
 						</div>

@@ -1283,7 +1283,7 @@ input, select, textarea {
 						}
 
 		}
-
+		
 		@media screen and (max-width: 736px) {
 
 			.row {
@@ -1416,9 +1416,10 @@ input, select, textarea {
 				.row > .off-11-small {
 					margin-left: 91.66667%;
 				}
-
+				
+				/*Value was 100%*/
 				.row > .col-12-small {
-					width: 100%;
+					width: 50%;
 				}
 
 				.row > .off-12-small {
@@ -1661,9 +1662,10 @@ input, select, textarea {
 				.row > .off-11-xsmall {
 					margin-left: 91.66667%;
 				}
-
+				
+				/*Value was 100%*/
 				.row > .col-12-xsmall {
-					width: 100%;
+					width: 50%;
 				}
 
 				.row > .off-12-xsmall {
@@ -2333,6 +2335,13 @@ input, select, textarea {
 		.image.right {
 			float: right;
 			padding: 0 0 1em 1.5em;
+			top: 0.25em;
+		}
+
+		.image.middle {
+			float: middle;
+			margin: 0 auto;
+			padding: 0 0em 0em 0em;
 			top: 0.25em;
 		}
 
