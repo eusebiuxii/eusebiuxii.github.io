@@ -93,7 +93,7 @@ input, select, textarea {
 	}
 
 	body {
-		background: #efefef;
+		background: #f6f3ed;
 	}
 
 		body.is-preload *, body.is-preload *:before, body.is-preload *:after {
@@ -3162,7 +3162,7 @@ input, select, textarea {
 
 	#footer {
 		padding: 5em 0 6em 0 ;
-		background-color: #f6f3ed;
+		background-color: #e8e8e8;
 	}
 
 		#footer > .inner {
