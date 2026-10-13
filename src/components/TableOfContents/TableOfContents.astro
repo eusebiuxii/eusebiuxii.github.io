@@ -1,0 +1,102 @@
+---
+import type { MarkdownHeading } from "astro"
+import { cn } from "@/lib/utils"
+import styles from "./TableOfContents.module.css"
+
+interface Props {
+  /** From `render(entry)`; Astro gives each Markdown heading a slug id */
+  headings: MarkdownHeading[]
+}
+
+const { headings } = Astro.props
+---
+
+<ul class={styles.list}>
+  {
+    headings.map((heading) => (
+      <li>
+        <a
+          class={cn(styles.link, heading.depth > 2 && styles.nested)}
+          href={`#${heading.slug}`}
+          data-toc-link={heading.slug}
+        >
+          {heading.text}
+        </a>
+      </li>
+    ))
+  }
+</ul>
+
+<script>
+  /*
+   * Scroll spy: highlights the section currently being read. A heading is
+   * "current" once it scrolls above a line just under the floating header.
+   * Runs for every list on the page (sidebar and mobile versions).
+   */
+  const links = [
+    ...document.querySelectorAll<HTMLAnchorElement>("[data-toc-link]"),
+  ]
+  const ids = [...new Set(links.map((link) => link.dataset.tocLink!))]
+  const headings = ids
+    .map((id) => document.getElementById(id))
+    .filter((el): el is HTMLElement => el !== null)
+
+  /*
+   * A clicked section stays highlighted even if the page can't scroll far
+   * enough to bring it to the top (short sections near the end), until the
+   * visitor scrolls by themselves.
+   */
+  let clickedId: string | null = null
+  for (const link of links) {
+    link.addEventListener("click", () => {
+      clickedId = link.dataset.tocLink!
+      schedule()
+    })
+  }
+  for (const type of ["wheel", "touchmove", "keydown", "pointerdown"]) {
+    window.addEventListener(type, () => (clickedId = null), { passive: true })
+  }
+
+  function update() {
+    if (clickedId) return highlight(clickedId)
+
+    const offset =
+      parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) +
+      8
+    const atBottom =
+      window.innerHeight + window.scrollY >=
+      document.documentElement.scrollHeight - 2
+
+    let current = atBottom ? headings.at(-1) : undefined
+    if (!current) {
+      for (const heading of headings) {
+        if (heading.getBoundingClientRect().top > offset) break
+        current = heading
+      }
+    }
+
+    highlight(current?.id)
+  }
+
+  function highlight(id: string | undefined) {
+    for (const link of links) {
+      if (link.dataset.tocLink === id) {
+        link.setAttribute("aria-current", "location")
+      } else {
+        link.removeAttribute("aria-current")
+      }
+    }
+  }
+
+  let frame = 0
+  const schedule = () => {
+    cancelAnimationFrame(frame)
+    frame = requestAnimationFrame(update)
+  }
+
+  if (headings.length > 0) {
+    update()
+    window.addEventListener("scroll", schedule, { passive: true })
+    window.addEventListener("resize", schedule)
+  }
+</script>

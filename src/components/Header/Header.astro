@@ -1,0 +1,56 @@
+---
+import { Search } from "lucide-react"
+import MobileMenu from "@/components/MobileMenu/MobileMenu"
+import ThemeToggle from "@/components/ThemeToggle/ThemeToggle"
+import { cn } from "@/lib/utils"
+import { site } from "@/site.config"
+import styles from "./Header.module.css"
+
+const path = Astro.url.pathname
+const isActive = (href: string) => path === href || path.startsWith(`${href}/`)
+const firstName = site.name.split(" ")[0]
+---
+
+<!-- Floating pill navbar: sticks just below the top of the viewport -->
+<header class={styles.wrapper}>
+  <div class={styles.bar}>
+    <a class={styles.logo} href="/">
+      {firstName}<span class={styles.logoDot}>.</span>
+    </a>
+
+    <nav class={styles.desktopNav} aria-label="Main">
+      {
+        site.nav.map((item) => (
+          <a
+            class={cn(styles.navLink, isActive(item.href) && styles.active)}
+            href={item.href}
+            aria-current={isActive(item.href) ? "page" : undefined}
+          >
+            {item.label}
+          </a>
+        ))
+      }
+      <a class={styles.contactButton} href={site.contact.href}>
+        {site.contact.label}
+      </a>
+    </nav>
+
+    <div class={styles.actions}>
+      <a
+        class={cn(styles.iconButton, isActive("/search") && styles.active)}
+        href="/search"
+        aria-label="Search"
+        aria-current={isActive("/search") ? "page" : undefined}
+      >
+        <Search aria-hidden />
+      </a>
+      <ThemeToggle client:load />
+      <MobileMenu
+        client:media="(max-width: 48rem)"
+        items={site.nav}
+        contact={site.contact}
+        currentPath={path}
+      />
+    </div>
+  </div>
+</header>

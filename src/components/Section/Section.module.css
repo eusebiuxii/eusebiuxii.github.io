@@ -1,0 +1,21 @@
+.section + .section {
+  margin-top: var(--space-8);
+}
+
+.heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
+}
+
+.title {
+  font-size: var(--text-xl);
+}
+
+.link {
+  font-size: var(--text-sm);
+  font-weight: 500;
+  text-decoration: none;
+}

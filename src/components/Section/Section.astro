@@ -1,0 +1,25 @@
+---
+import styles from "./Section.module.css"
+
+interface Props {
+  title: string
+  /** Optional "see all" link shown next to the title */
+  link?: { href: string; label: string }
+}
+
+const { title, link } = Astro.props
+---
+
+<section class={styles.section}>
+  <div class={styles.heading}>
+    <h2 class={styles.title}>{title}</h2>
+    {
+      link && (
+        <a class={styles.link} href={link.href}>
+          {link.label} →
+        </a>
+      )
+    }
+  </div>
+  <slot />
+</section>

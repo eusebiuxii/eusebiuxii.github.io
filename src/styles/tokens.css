@@ -1,0 +1,106 @@
+/*
+ * Design tokens — the single source of truth for colours, spacing, type, etc.
+ * Components should only reference these variables, never raw values,
+ * so a theme change happens in one place.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* Colour — surfaces */
+  --color-bg: oklch(0.99 0 0);
+  --color-surface: oklch(1 0 0);
+  --color-surface-muted: oklch(0.965 0.003 265);
+  --color-border: oklch(0.91 0.004 265);
+  /* Frosted glass (header bar, mobile menu); follows the theme's surface */
+  --color-surface-glass: color-mix(
+    in oklch,
+    var(--color-surface) 75%,
+    transparent
+  );
+  --blur-glass: 12px;
+
+  /* Colour — text */
+  --color-text: oklch(0.2 0.01 265);
+  --color-text-muted: oklch(0.5 0.01 265);
+
+  /* Colour — brand / accent */
+  --color-accent: oklch(0.52 0.2 264);
+  --color-accent-hover: oklch(0.46 0.2 264);
+  --color-accent-contrast: oklch(0.98 0.01 264);
+  --color-accent-soft: oklch(0.95 0.03 264);
+
+  /* Colour — status */
+  --color-danger: oklch(0.58 0.22 27);
+
+  --color-focus-ring: color-mix(in oklch, var(--color-accent) 55%, transparent);
+
+  /* Typography */
+  --font-sans:
+    "Inter Variable", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono:
+    ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.375rem;
+  --text-2xl: 1.75rem;
+  --text-3xl: clamp(2rem, 1.5rem + 2.5vw, 3rem);
+
+  --leading-tight: 1.2;
+  --leading-normal: 1.6;
+
+  /* Spacing scale */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+
+  /* Shape & depth */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --shadow-sm: 0 1px 2px oklch(0 0 0 / 6%);
+  --shadow-md: 0 4px 16px oklch(0 0 0 / 8%);
+
+  /* Layout */
+  --width-content: 72rem;
+  --width-prose: 44rem;
+  /* The header floats --header-top below the viewport edge */
+  --header-height: 4rem;
+  --header-top: var(--space-5);
+  --header-offset: calc(var(--header-top) + var(--header-height));
+
+  /* Motion */
+  --transition-fast: 150ms ease;
+}
+
+/* Dark theme: toggled by setting data-theme="dark" on <html> (see ThemeToggle) */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --color-bg: oklch(0.16 0.006 265);
+  --color-surface: oklch(0.2 0.008 265);
+  --color-surface-muted: oklch(0.24 0.01 265);
+  --color-border: oklch(1 0 0 / 11%);
+
+  --color-text: oklch(0.95 0.004 265);
+  --color-text-muted: oklch(0.7 0.01 265);
+
+  --color-accent: oklch(0.7 0.15 264);
+  --color-accent-hover: oklch(0.76 0.13 264);
+  --color-accent-contrast: oklch(0.18 0.03 264);
+  --color-accent-soft: oklch(0.3 0.06 264);
+
+  --color-danger: oklch(0.7 0.19 22);
+
+  --shadow-sm: 0 1px 2px oklch(0 0 0 / 30%);
+  --shadow-md: 0 4px 16px oklch(0 0 0 / 40%);
+}

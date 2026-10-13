@@ -1,0 +1,93 @@
+/*
+ * Global styles: base element styling plus a few shared layout classes.
+ * Component-specific styles live next to each component as *.module.css.
+ */
+
+@import "@fontsource-variable/inter";
+@import "./reset.css";
+@import "./tokens.css";
+
+html {
+  font-family: var(--font-sans);
+  font-size: 100%;
+  line-height: var(--leading-normal);
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  scroll-padding-top: calc(var(--header-offset) + var(--space-4));
+  /* Always reserve the scrollbar's space so the page (and the header) don't
+     shift sideways between short pages and ones that scroll */
+  scrollbar-gutter: stable;
+}
+
+/* Smooth in-page jumps (e.g. the contents sidebar), unless motion is reduced */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  line-height: var(--leading-tight);
+  font-weight: 650;
+  letter-spacing: -0.015em;
+}
+
+a {
+  color: var(--color-accent);
+  text-underline-offset: 0.2em;
+}
+
+a:hover {
+  color: var(--color-accent-hover);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+code,
+kbd,
+pre {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
+
+::selection {
+  background-color: var(--color-accent-soft);
+}
+
+/* ---------- Shared layout classes ---------- */
+
+/* Centres content and applies the page gutter */
+.container {
+  width: 100%;
+  max-width: var(--width-content);
+  margin-inline: auto;
+  padding-inline: var(--space-5);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ---------- Shiki code blocks: switch theme with data-theme ---------- */
+
+:root[data-theme="dark"] .astro-code,
+:root[data-theme="dark"] .astro-code span {
+  color: var(--shiki-dark) !important;
+  background-color: var(--shiki-dark-bg) !important;
+}

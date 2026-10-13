@@ -1,0 +1,10 @@
+---
+import CodeCopy from "@/components/CodeCopy/CodeCopy.astro"
+import styles from "./Prose.module.css"
+---
+
+<!-- Wraps rendered Markdown/MDX so plain elements (h2, p, ul…) get typography -->
+<div class={styles.prose} data-prose>
+  <slot />
+</div>
+<CodeCopy />

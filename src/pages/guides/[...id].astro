@@ -1,0 +1,36 @@
+---
+import type { GetStaticPaths } from "astro"
+import { render } from "astro:content"
+import EntryLayout from "@/layouts/EntryLayout.astro"
+import { formatDate, getGuides } from "@/lib/content"
+
+export const getStaticPaths = (async () => {
+  const guides = await getGuides()
+  return guides.map((guide) => ({
+    params: { id: guide.id },
+    props: { guide },
+  }))
+}) satisfies GetStaticPaths
+
+const { guide } = Astro.props
+const { Content, headings } = await render(guide)
+const { title, description, date, updated, tags, difficulty } = guide.data
+
+const meta = [
+  formatDate(date),
+  updated && `Updated ${formatDate(updated)}`,
+  difficulty && difficulty[0].toUpperCase() + difficulty.slice(1),
+].filter((item): item is string => !!item)
+---
+
+<EntryLayout
+  title={title}
+  description={description}
+  eyebrow="Guide"
+  meta={meta}
+  tags={tags}
+  headings={headings}
+  back={{ href: "/guides", label: "All guides" }}
+>
+  <Content />
+</EntryLayout>

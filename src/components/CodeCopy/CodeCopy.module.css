@@ -1,0 +1,70 @@
+/* Wraps each <pre> so the button doesn't scroll with long lines */
+.codeBlock {
+  --code-bg: var(--code-bg-light, var(--color-surface));
+  position: relative;
+}
+
+:global(:root[data-theme="dark"]) .codeBlock {
+  --code-bg: var(--code-bg-dark, var(--color-surface));
+}
+
+/*
+ * Fades out code that scrolls under the button, in the block's own
+ * background. Sits just inside the <pre>'s 1px border, below the button.
+ */
+.codeBlock::after {
+  content: "";
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  z-index: 1;
+  width: 4.25rem;
+  height: 3.125rem;
+  border-top-right-radius: calc(var(--radius-md) - 1px);
+  background: linear-gradient(to right, transparent, var(--code-bg) 1.25rem);
+  pointer-events: none;
+}
+
+/* Keep the first line of code from running under the button */
+.codeBlock > pre {
+  padding-right: calc(var(--space-4) + 2.5rem);
+}
+
+.button {
+  position: absolute;
+  z-index: 2;
+  top: 0.625rem;
+  right: 0.625rem;
+  display: inline-grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background-color: var(--color-surface);
+  color: var(--color-text-muted);
+  cursor: pointer;
+  /* Opaque, so long lines scrolling underneath don't show through */
+  transition:
+    color var(--transition-fast),
+    border-color var(--transition-fast);
+}
+
+.button svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.codeBlock:hover .button {
+  border-color: color-mix(in oklch, var(--color-text) 25%, transparent);
+}
+
+.button:hover {
+  color: var(--color-text);
+}
+
+.button[data-copied] {
+  border-color: color-mix(in oklch, var(--color-accent) 45%, transparent);
+  color: var(--color-accent);
+}

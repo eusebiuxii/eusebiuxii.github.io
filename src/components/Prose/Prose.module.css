@@ -1,0 +1,87 @@
+/*
+ * Typography for rendered Markdown. Markdown output has no classes,
+ * so these use descendant selectors under the scoped .prose wrapper.
+ */
+.prose {
+  max-width: var(--width-prose);
+  font-size: var(--text-base);
+}
+
+.prose > * + * {
+  margin-top: var(--space-4);
+}
+
+.prose h2 {
+  margin-top: var(--space-7);
+  font-size: var(--text-2xl);
+}
+
+.prose h3 {
+  margin-top: var(--space-6);
+  font-size: var(--text-xl);
+}
+
+.prose h2 + *,
+.prose h3 + * {
+  margin-top: var(--space-3);
+}
+
+.prose ul,
+.prose ol {
+  padding-left: var(--space-5);
+}
+
+.prose li + li {
+  margin-top: var(--space-1);
+}
+
+.prose blockquote {
+  padding: var(--space-3) var(--space-4);
+  border-left: 3px solid var(--color-accent);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  background-color: var(--color-accent-soft);
+}
+
+.prose :not(pre) > code {
+  padding: 0.1em 0.35em;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-surface-muted);
+}
+
+.prose pre {
+  padding: var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow-x: auto;
+  font-size: var(--text-sm);
+  line-height: 1.55;
+}
+
+.prose table {
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+}
+
+.prose th,
+.prose td {
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+  text-align: left;
+}
+
+.prose th {
+  font-weight: 600;
+}
+
+.prose img {
+  border-radius: var(--radius-md);
+}
+
+.prose hr {
+  border: 0;
+  border-top: 1px solid var(--color-border);
+}

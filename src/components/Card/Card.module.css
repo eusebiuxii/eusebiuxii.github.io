@@ -1,0 +1,90 @@
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-5);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background-color: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+.card:hover {
+  border-color: color-mix(
+    in oklch,
+    var(--color-accent) 40%,
+    var(--color-border)
+  );
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.card:focus-within {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+/* Bleeds to the card edges by cancelling the card's padding */
+.thumbnail {
+  margin: calc(-1 * var(--space-5)) calc(-1 * var(--space-5)) var(--space-2);
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-bottom: 1px solid var(--color-border);
+  /* Inner radius = card radius minus its 1px border */
+  border-radius: calc(var(--radius-lg) - 1px) calc(var(--radius-lg) - 1px) 0 0;
+  background-color: var(--color-surface-muted);
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-fast);
+}
+
+.card:hover .image {
+  transform: scale(1.03);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card:hover .image {
+    transform: none;
+  }
+}
+
+.meta {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.title {
+  font-size: var(--text-lg);
+}
+
+.link {
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+/* Stretch the link over the whole card */
+.link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+
+.link:focus-visible {
+  outline: none;
+}
+
+.description {
+  flex: 1;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}

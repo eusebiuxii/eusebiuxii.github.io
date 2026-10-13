@@ -1,0 +1,75 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro"
+import Card from "@/components/Card/Card"
+import CardGrid from "@/components/CardGrid/CardGrid.astro"
+import Section from "@/components/Section/Section.astro"
+import { getItems } from "@/lib/content"
+import { cn } from "@/lib/utils"
+import styles from "./index.module.css"
+
+const [projects, guides] = await Promise.all([
+  getItems(["projects"]),
+  getItems(["guides"]),
+])
+const featured = projects.filter((p) => p.featured)
+const shownProjects = (featured.length > 0 ? featured : projects).slice(0, 4)
+const latestGuides = guides.slice(0, 3)
+---
+
+<BaseLayout>
+  <div class="container">
+    <section class={styles.hero}>
+      <h1 class={styles.heroTitle}>Hi, I'm Eusebiu.</h1>
+      <p class={styles.heroText}>
+        I build things and write about them. Here you'll find my projects and
+        guides for anyone tackling something similar.
+      </p>
+      <div class={styles.heroActions}>
+        <a class={cn(styles.button, styles.buttonPrimary)} href="/projects">
+          See projects
+        </a>
+        <a class={styles.button} href="/guides">Read guides</a>
+      </div>
+    </section>
+
+    <Section
+      title="Projects"
+      link={{ href: "/projects", label: "All projects" }}
+    >
+      <CardGrid>
+        {
+          shownProjects.map((project) => (
+            <Card
+              href={project.href}
+              title={project.title}
+              description={project.description}
+              tags={project.tags}
+              image={project.image}
+            />
+          ))
+        }
+      </CardGrid>
+    </Section>
+
+    {
+      latestGuides.length > 0 && (
+        <Section
+          title="Latest guides"
+          link={{ href: "/guides", label: "All guides" }}
+        >
+          <CardGrid>
+            {latestGuides.map((guide) => (
+              <Card
+                href={guide.href}
+                title={guide.title}
+                description={guide.description}
+                meta={guide.meta}
+                image={guide.image}
+              />
+            ))}
+          </CardGrid>
+        </Section>
+      )
+    }
+  </div>
+</BaseLayout>

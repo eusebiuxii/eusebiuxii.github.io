@@ -1,0 +1,21 @@
+.pageHeader {
+  margin-bottom: var(--space-7);
+}
+
+.eyebrow {
+  margin-bottom: var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-accent);
+}
+
+.title {
+  font-size: var(--text-3xl);
+}
+
+.description {
+  max-width: var(--width-prose);
+  margin-top: var(--space-3);
+  font-size: var(--text-lg);
+  color: var(--color-text-muted);
+}

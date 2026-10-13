@@ -1,0 +1,24 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro"
+import ContentBrowser from "@/components/ContentBrowser/ContentBrowser"
+import PageHeader from "@/components/PageHeader/PageHeader.astro"
+import { getItems } from "@/lib/content"
+
+// Every section; new ones show up here once added to getItems()
+const items = await getItems()
+---
+
+<BaseLayout title="Search" description="Search projects and guides.">
+  <div class="container">
+    <PageHeader
+      title="Search"
+      description="Everything on the site — projects and guides."
+    />
+    <ContentBrowser
+      client:load
+      items={items}
+      placeholder="Search everything…"
+      autoFocus
+    />
+  </div>
+</BaseLayout>

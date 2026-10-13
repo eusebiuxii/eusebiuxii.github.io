@@ -1,0 +1,51 @@
+.hero {
+  max-width: var(--width-prose);
+  padding-block: var(--space-6) var(--space-8);
+}
+
+.heroTitle {
+  font-size: var(--text-3xl);
+}
+
+.heroText {
+  margin-top: var(--space-4);
+  font-size: var(--text-lg);
+  color: var(--color-text-muted);
+}
+
+.heroActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  height: 2.5rem;
+  padding-inline: var(--space-4);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-text);
+  text-decoration: none;
+  transition: background-color var(--transition-fast);
+}
+
+.button:hover {
+  color: var(--color-text);
+  background-color: var(--color-surface-muted);
+}
+
+.buttonPrimary {
+  border-color: transparent;
+  background-color: var(--color-accent);
+  color: var(--color-accent-contrast);
+}
+
+.buttonPrimary:hover {
+  color: var(--color-accent-contrast);
+  background-color: var(--color-accent-hover);
+}

@@ -1,0 +1,99 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro"
+import PageHeader from "@/components/PageHeader/PageHeader.astro"
+import Prose from "@/components/Prose/Prose.astro"
+import TableOfContents from "@/components/TableOfContents/TableOfContents.astro"
+import TagList from "@/components/TagList/TagList"
+import { cn } from "@/lib/utils"
+import type { MarkdownHeading } from "astro"
+import styles from "./EntryLayout.module.css"
+
+/** Layout for a single project or guide page (and long-form pages like About) */
+interface Props {
+  title: string
+  description?: string
+  eyebrow?: string
+  meta?: string[]
+  tags?: readonly string[]
+  links?: { href: string; label: string }[]
+  /** "← All projects"-style link above the title */
+  back?: { href: string; label: string }
+  /** Headings from `render(entry)`, used for the "On this page" contents */
+  headings?: MarkdownHeading[]
+}
+
+const {
+  title,
+  description,
+  eyebrow,
+  meta = [],
+  tags = [],
+  links = [],
+  back,
+  headings = [],
+} = Astro.props
+
+// Sections (h2) and subsections (h3); not worth a menu for a single heading
+const tocHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3)
+const hasToc = tocHeadings.length >= 2
+---
+
+<BaseLayout title={title} description={description}>
+  <div class={cn("container", hasToc && styles.withToc)}>
+    {
+      hasToc && (
+        <aside class={styles.aside}>
+          <nav aria-label="On this page">
+            <p class={styles.tocTitle}>On this page</p>
+            <TableOfContents headings={tocHeadings} />
+          </nav>
+        </aside>
+      )
+    }
+
+    <article class={styles.article}>
+      {
+        back && (
+          <a class={styles.back} href={back.href}>
+            ← {back.label}
+          </a>
+        )
+      }
+
+      <PageHeader title={title} description={description} eyebrow={eyebrow}>
+        <div class={styles.details}>
+          {meta.length > 0 && <p class={styles.meta}>{meta.join(" · ")}</p>}
+          {tags.length > 0 && <TagList tags={tags} />}
+          {
+            links.length > 0 && (
+              <ul class={styles.links}>
+                {links.map((link) => (
+                  <li>
+                    <a href={link.href} target="_blank" rel="noopener">
+                      {link.label} ↗
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )
+          }
+        </div>
+      </PageHeader>
+
+      {
+        hasToc && (
+          <details class={styles.mobileToc}>
+            <summary>On this page</summary>
+            <nav aria-label="On this page">
+              <TableOfContents headings={tocHeadings} />
+            </nav>
+          </details>
+        )
+      }
+
+      <Prose>
+        <slot />
+      </Prose>
+    </article>
+  </div>
+</BaseLayout>

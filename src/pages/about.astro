@@ -1,0 +1,169 @@
+---
+import type { MarkdownHeading } from "astro"
+import { Image } from "astro:assets"
+import EntryLayout from "@/layouts/EntryLayout.astro"
+import { moduleYears } from "@/data/modules"
+import karting from "@/assets/about/karting.jpg"
+import portrait from "@/assets/about/portrait.jpg"
+import styles from "./about.module.css"
+
+const timeline = [
+  {
+    when: "Oct 2024 – Present",
+    title: "Junior Software Developer",
+    place: "bet365, Manchester",
+    text: "Currently working at bet365 as a junior software engineer, working on the gaming side, making front end chnages in .net and later in react, sql scripts to add new content and site rules for new regulations, and Go Lang work in regards their micro service back end architecture, for various endpoints and data handling, now deployed to Google Cloud.",
+  },
+  {
+    when: "Jun – Sep 2023",
+    title: "Summer Intern",
+    place: "Caplin Systems, London",
+    text: "Caplin builds web trading and financial tools for banks. In a team of three I worked on a proof-of-concept dashboard analysing trading and client data across 6+ widgets — React and TypeScript on the front end, Java and Spring Boot on the back end — and picked up CI/CD, agile workflows and automated testing along the way.",
+  },
+  {
+    when: "2021 – 2024",
+    title: "BSc Computer Science — 2:1",
+    place: "University of Liverpool",
+    text: "23 modules covering both the theory and practice of computer science, 4+ personal and group projects, and a dissertation. I also sat on the Student Liaison Committee, raising issues on behalf of CS students and helping at department open days.",
+  },
+  {
+    when: "2019 – 2021",
+    title: "A-Levels in Maths, Physics & Computer Science",
+    place: "Whitmore High School, London",
+    text: "Studied through Covid, with a final-year project that became my first game.",
+    project: { title: "Hero Knight", href: "/projects/hero-knight" },
+  },
+]
+
+// Hand-written page, so its "On this page" entries are listed by hand too
+const headings: MarkdownHeading[] = [
+  { depth: 2, slug: "background", text: "Background" },
+  { depth: 2, slug: "outside-of-code", text: "Outside of code" },
+  { depth: 2, slug: "experience", text: "Education & experience" },
+  { depth: 2, slug: "modules", text: "University modules" },
+  ...moduleYears.map(({ year }) => ({
+    depth: 3,
+    slug: year.toLowerCase().replace(/\s+/g, "-"),
+    text: year,
+  })),
+]
+---
+
+<EntryLayout
+  title="Eusebiu Moldovan (Seb)"
+  description="Software engineer, Computer Science graduate and maker of small games and apps."
+  eyebrow="About"
+  headings={headings}
+>
+  <div class={styles.page}>
+    <h2 id="background">Background</h2>
+    <div class={styles.intro}>
+      <Image
+        class={styles.portrait}
+        src={portrait}
+        alt="Portrait of Eusebiu"
+        width={122}
+        height={140}
+      />
+      <div>
+        <p>
+          Born in the countryside of Romania, I moved to the UK in 2016 and I've
+          been living here ever since. I picked up programming early on, studied
+          Maths, Physics and Computer Science at A-Level, and went on to
+          graduate from the <a href="https://www.liverpool.ac.uk/"
+            >University of Liverpool</a
+          > with a Bachelor's in Computer Science.
+        </p>
+        <p>
+          I'm always on the lookout for great opportunities to learn from
+          others, develop my skills and gain experience working as a software
+          engineer — from internships to hackathons like ICPC UK & Ireland.
+        </p>
+      </div>
+    </div>
+
+    <h2 id="outside-of-code">Outside of code</h2>
+    <figure class={styles.figure}>
+      <Image
+        class={styles.photo}
+        src={karting}
+        alt="Eusebiu and a friend racing go-karts on an outdoor track at night"
+        widths={[325]}
+        sizes="(min-width: 40rem) 13rem, 100vw"
+      />
+      <figcaption>Racing go-karts late at night</figcaption>
+    </figure>
+    <p>
+      Aside from Computer Science, I've always been interested in Mechanical
+      Engineering, but chose not to pursue it as a career. I've always preferred
+      Maths and Science over English and other subjects — that was evident early
+      on, and again when choosing a degree.
+    </p>
+    <p>
+      I fill most of my spare time either learning more about those interests,
+      or just being a young adult: going out, playing video games, watching
+      football and racing go-karts. Early in the pandemic I also volunteered
+      with the National Citizen Service, helping raise £300+ for a local food
+      bank.
+    </p>
+
+    <h2 id="experience">Education & experience</h2>
+    <ol class={styles.timeline}>
+      {
+        timeline.map((item) => (
+          <li class={styles.event}>
+            <p class={styles.when}>{item.when}</p>
+            <h3 class={styles.eventTitle}>{item.title}</h3>
+            <p class={styles.place}>{item.place}</p>
+            <p>
+              {item.text}
+              {item.project && (
+                <>
+                  {" "}
+                  <a class={styles.nowrap} href={item.project.href}>
+                    {item.project.title} →
+                  </a>
+                </>
+              )}
+            </p>
+          </li>
+        ))
+      }
+    </ol>
+
+    <h2 id="modules">University modules</h2>
+    <p>
+      Each semester had four modules, eight a year. These are the ones I enjoyed
+      most or found most useful.
+    </p>
+    {
+      moduleYears.map(({ year, modules }) => (
+        <section>
+          <h3 id={year.toLowerCase().replace(/\s+/g, "-")}>{year}</h3>
+          <ul class={styles.modules}>
+            {modules.map((module) => (
+              <li class={styles.module}>
+                <p class={styles.code}>{module.code}</p>
+                <h4 class={styles.moduleName}>{module.name}</h4>
+                <ul class={styles.points}>
+                  {module.points.map((point) => (
+                    <li>{point}</li>
+                  ))}
+                </ul>
+                {module.projects && (
+                  <p class={styles.moduleProjects}>
+                    Built:{" "}
+                    {module.projects.map((project, i) => [
+                      i > 0 && ", ",
+                      <a href={project.href}>{project.title}</a>,
+                    ])}
+                  </p>
+                )}
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))
+    }
+  </div>
+</EntryLayout>

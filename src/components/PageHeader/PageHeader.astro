@@ -1,0 +1,19 @@
+---
+import styles from "./PageHeader.module.css"
+
+interface Props {
+  title: string
+  description?: string
+  /** Small label shown above the title, e.g. "Guide" */
+  eyebrow?: string
+}
+
+const { title, description, eyebrow } = Astro.props
+---
+
+<header class={styles.pageHeader}>
+  {eyebrow && <p class={styles.eyebrow}>{eyebrow}</p>}
+  <h1 class={styles.title}>{title}</h1>
+  {description && <p class={styles.description}>{description}</p>}
+  <slot />
+</header>

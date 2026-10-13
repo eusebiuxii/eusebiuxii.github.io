@@ -1,0 +1,90 @@
+---
+/*
+ * Adds a copy button to every code block inside Prose. The buttons are
+ * created by the script, so visitors without JavaScript don't get buttons
+ * that do nothing.
+ */
+---
+
+<script>
+  import styles from "./CodeCopy.module.css"
+
+  const RESET_AFTER_MS = 2000
+
+  // Lucide "copy" and "check" icons
+  const svg = (paths: string) =>
+    `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths}</svg>`
+  const copyIcon = svg(
+    '<rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>'
+  )
+  const checkIcon = svg('<path d="M20 6 9 17l-5-5"/>')
+
+  async function writeClipboard(text: string) {
+    try {
+      await navigator.clipboard.writeText(text)
+    } catch {
+      // Clipboard API needs HTTPS (or localhost); fall back to the old way
+      const textarea = document.createElement("textarea")
+      textarea.value = text
+      textarea.setAttribute("readonly", "")
+      textarea.style.position = "fixed"
+      textarea.style.opacity = "0"
+      document.body.append(textarea)
+      textarea.select()
+      const copied = document.execCommand("copy")
+      textarea.remove()
+      if (!copied) throw new Error("Copy failed")
+    }
+  }
+
+  function addCopyButton(pre: HTMLPreElement) {
+    // The wrapper holds the button so it stays put while long lines scroll
+    const wrapper = document.createElement("div")
+    wrapper.className = styles.codeBlock
+    // Shiki's light/dark backgrounds, so the fade behind the button matches
+    wrapper.style.setProperty("--code-bg-light", pre.style.backgroundColor)
+    wrapper.style.setProperty(
+      "--code-bg-dark",
+      pre.style.getPropertyValue("--shiki-dark-bg")
+    )
+    pre.before(wrapper)
+    wrapper.append(pre)
+
+    const button = document.createElement("button")
+    button.type = "button"
+    button.className = styles.button
+    button.setAttribute("aria-label", "Copy code")
+    button.innerHTML = copyIcon
+
+    // Announces the result to screen readers
+    const status = document.createElement("span")
+    status.className = "visually-hidden"
+    status.setAttribute("role", "status")
+
+    let resetTimer = 0
+    button.addEventListener("click", async () => {
+      const text = (pre.querySelector("code") ?? pre).textContent ?? ""
+      let message = "Copied to clipboard"
+      try {
+        await writeClipboard(text.replace(/\n$/, ""))
+        button.innerHTML = checkIcon
+        button.dataset.copied = ""
+      } catch {
+        message = "Couldn't copy — select the text instead"
+      }
+      status.textContent = message
+      window.clearTimeout(resetTimer)
+      resetTimer = window.setTimeout(() => {
+        button.innerHTML = copyIcon
+        delete button.dataset.copied
+        status.textContent = ""
+      }, RESET_AFTER_MS)
+    })
+
+    wrapper.append(button, status)
+  }
+
+  document
+    .querySelectorAll<HTMLPreElement>("[data-prose] pre")
+    .forEach(addCopyButton)
+</script>

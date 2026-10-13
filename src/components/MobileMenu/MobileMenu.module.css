@@ -1,0 +1,132 @@
+/* ---------- Burger button ---------- */
+
+/* 44px touch target around a smaller visual icon */
+.trigger {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+@media (max-width: 48rem) {
+  .trigger {
+    display: flex;
+  }
+}
+
+.burgerIcon {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 1.25rem;
+  height: 0.875rem;
+}
+
+.burgerLine {
+  display: block;
+  width: 100%;
+  height: 0.125rem;
+  border-radius: 999px;
+  background-color: currentColor;
+  transform-origin: center;
+  transition:
+    transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.2s ease-in-out;
+}
+
+/* Open state: lines morph into an X.
+   Offset = (icon height - line thickness) / 2 = 0.375rem */
+.trigger[aria-expanded="true"] .burgerLine:nth-child(1) {
+  transform: translateY(0.375rem) rotate(45deg);
+}
+
+.trigger[aria-expanded="true"] .burgerLine:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.trigger[aria-expanded="true"] .burgerLine:nth-child(3) {
+  transform: translateY(-0.375rem) rotate(-45deg);
+}
+
+/* ---------- Drawer ---------- */
+
+/*
+ * Positioned against the header bar (position: relative). Offsets are
+ * measured inside the bar's 1px border, so -1px lines the drawer up with
+ * the bar's outer edges.
+ */
+.drawer {
+  position: absolute;
+  top: calc(100% + var(--space-3));
+  left: -1px;
+  right: -1px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-5);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  /* Same frosted glass as the header bar */
+  background-color: var(--color-surface-glass);
+  backdrop-filter: blur(var(--blur-glass));
+  box-shadow: var(--shadow-md);
+  opacity: 0;
+  transform: translateY(-0.5rem);
+  pointer-events: none;
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+}
+
+.drawerOpen {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+@media (min-width: 48.0625rem) {
+  .drawer {
+    display: none;
+  }
+}
+
+.link {
+  padding-block: var(--space-2);
+  border-bottom: 1px solid var(--color-border);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.link:hover,
+.active {
+  color: var(--color-accent);
+}
+
+.contactButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.5rem;
+  margin-top: var(--space-2);
+  border-radius: var(--radius-md);
+  background-color: var(--color-accent);
+  color: var(--color-accent-contrast);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.contactButton:hover {
+  background-color: var(--color-accent-hover);
+  color: var(--color-accent-contrast);
+}

@@ -1,0 +1,36 @@
+---
+import type { GetStaticPaths } from "astro"
+import { render } from "astro:content"
+import EntryLayout from "@/layouts/EntryLayout.astro"
+import { formatDate, getProjects } from "@/lib/content"
+
+export const getStaticPaths = (async () => {
+  const projects = await getProjects()
+  return projects.map((project) => ({
+    params: { id: project.id },
+    props: { project },
+  }))
+}) satisfies GetStaticPaths
+
+const { project } = Astro.props
+const { Content, headings } = await render(project)
+const { title, description, date, tags, repo, demo } = project.data
+
+const links = [
+  repo && { href: repo, label: "Source" },
+  demo && { href: demo, label: "Live demo" },
+].filter((link) => !!link)
+---
+
+<EntryLayout
+  title={title}
+  description={description}
+  eyebrow="Project"
+  meta={[formatDate(date)]}
+  tags={tags}
+  links={links}
+  headings={headings}
+  back={{ href: "/projects", label: "All projects" }}
+>
+  <Content />
+</EntryLayout>

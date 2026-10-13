@@ -1,0 +1,144 @@
+/* Sticky outer strip; only the bar itself is visible */
+.wrapper {
+  position: sticky;
+  top: var(--header-top);
+  z-index: 50;
+  margin-top: var(--header-top);
+  padding-inline: var(--space-4);
+}
+
+.bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  max-width: var(--width-content);
+  height: var(--header-height);
+  margin-inline: auto;
+  padding-inline: var(--space-5);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+}
+
+/*
+ * The frosted background lives on a pseudo-element rather than the bar.
+ * An element with backdrop-filter limits what its descendants' backdrop
+ * can see, so a blur on the bar would stop the mobile menu (inside the
+ * bar) from blurring the page behind it.
+ */
+.bar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background-color: var(--color-surface-glass);
+  backdrop-filter: blur(var(--blur-glass));
+}
+
+.logo {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: var(--color-text);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: opacity var(--transition-fast);
+}
+
+.logo:hover {
+  color: var(--color-text);
+  opacity: 0.85;
+}
+
+.logoDot {
+  color: var(--color-accent);
+}
+
+.desktopNav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-left: auto;
+}
+
+.navLink,
+.contactButton {
+  display: inline-flex;
+  align-items: center;
+  height: 2.25rem;
+  padding-inline: var(--space-4);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  text-decoration: none;
+  transition:
+    color var(--transition-fast),
+    background-color var(--transition-fast);
+}
+
+.navLink {
+  color: var(--color-text-muted);
+}
+
+.navLink:hover {
+  color: var(--color-text);
+  background-color: color-mix(in oklch, var(--color-text) 6%, transparent);
+}
+
+.active {
+  color: var(--color-text);
+}
+
+.contactButton {
+  background-color: var(--color-accent);
+  color: var(--color-accent-contrast);
+}
+
+.contactButton:hover {
+  background-color: var(--color-accent-hover);
+  color: var(--color-accent-contrast);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* Matches ThemeToggle so the two sit together */
+.iconButton {
+  display: inline-grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  color: var(--color-text-muted);
+  transition:
+    color var(--transition-fast),
+    background-color var(--transition-fast);
+}
+
+.iconButton:hover,
+.iconButton.active {
+  color: var(--color-text);
+  background-color: var(--color-surface-muted);
+}
+
+.iconButton svg {
+  width: 1.125rem;
+  height: 1.125rem;
+}
+
+@media (max-width: 48rem) {
+  .desktopNav {
+    display: none;
+  }
+
+  .bar {
+    padding-inline: var(--space-4) var(--space-2);
+  }
+}

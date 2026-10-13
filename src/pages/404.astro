@@ -1,0 +1,16 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro"
+import PageHeader from "@/components/PageHeader/PageHeader.astro"
+---
+
+<BaseLayout title="Page not found">
+  <div class="container">
+    <PageHeader
+      eyebrow="404"
+      title="Page not found"
+      description="That page doesn't exist — it may have moved."
+    >
+      <p><a href="/">Back to the homepage →</a></p>
+    </PageHeader>
+  </div>
+</BaseLayout>
