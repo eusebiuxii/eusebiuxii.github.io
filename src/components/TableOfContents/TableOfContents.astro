@@ -30,7 +30,7 @@ const { headings } = Astro.props
 <script>
   /*
    * Scroll spy: highlights the section currently being read. A heading is
-   * "current" once it scrolls above a line just under the floating header.
+   * "current" once it scrolls above the reading line (see update()).
    * Runs for every list on the page (sidebar and mobile versions).
    */
   const links = [
@@ -60,9 +60,17 @@ const { headings } = Astro.props
   function update() {
     if (clickedId) return highlight(clickedId)
 
-    const offset =
-      parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) +
-      8
+    /*
+     * The "reading line": a quarter of the way down the part of the screen
+     * not covered by the floating header. Once the next heading rises above
+     * it, that section is what you're reading, even though the header still
+     * hides the last lines of the previous one. Jumping to a heading from
+     * the contents puts it at scroll-padding-top, safely above this line.
+     */
+    const headerBottom = parseFloat(
+      getComputedStyle(document.documentElement).scrollPaddingTop,
+    )
+    const offset = headerBottom + (window.innerHeight - headerBottom) * 0.25
     const atBottom =
       window.innerHeight + window.scrollY >=
       document.documentElement.scrollHeight - 2
