@@ -16,8 +16,15 @@ Steps 1–6 are the main setup, in order. After that, [optional
 setups](#optional-setups) covers things only some machines need, like extra
 drives or docking stations.
 
-> Written for **Fedora 43 with GNOME 49**. Most of it applies to other recent
+> Written for **Fedora 43 with GNOME 49**, and checked again on a fresh
+> **Fedora 45 (GNOME 51)** laptop install. Most of it applies to other recent
 > versions too, but menu names and package versions shift over time.
+
+> **About the commands:** I use terminal commands a lot in this guide because
+> they're quicker to copy and paste than clicking through menus. You don't
+> have to use them, though. Most changes can be made in Settings or an app's
+> preferences, and files can be extracted from the Files app. Doing it by hand
+> is easy enough to work out, so I don't explain every click.
 
 ## 1. First boot
 
@@ -63,6 +70,50 @@ GNOME's default of only having a close button.
 > **Coming from Ubuntu?** Ubuntu's Settings has an _Ubuntu Desktop_ section
 > for the dock and desktop icons. Fedora doesn't — those options come from the
 > Dash to Dock and Desktop Icons NG extensions [below](#extensions-i-use).
+
+### Terminal: copy and paste with Ctrl + C and Ctrl + V
+
+Fedora's Terminal (Ptyxis) uses **Ctrl + Shift + C / V / A** for copy, paste
+and select all, because Ctrl + C traditionally stops the running command. If
+you're used to Windows, switch them to plain **Ctrl + C / V / A**: open the
+Terminal menu (☰) → _Preferences → Shortcuts_ and set _Copy_, _Paste_ and
+_Select All_, or run:
+
+```bash
+gsettings set org.gnome.Ptyxis.Shortcuts copy-clipboard '<Control>c'
+gsettings set org.gnome.Ptyxis.Shortcuts paste-clipboard '<Control>v'
+gsettings set org.gnome.Ptyxis.Shortcuts select-all '<Control>a'
+```
+
+> **Check Ctrl + C still stops commands:** with nothing selected, run
+> `sleep 30` and press Ctrl + C. It should stop straight away. If it doesn't,
+> set _Copy_ back to Ctrl + Shift + C (or set it to `''` to reset it).
+>
+> You also lose two lesser-known terminal shortcuts: Ctrl + A (jump to the
+> start of the line — use **Home** instead) and Ctrl + V (type the next key
+> literally).
+
+### Templates for right-click → New Document
+
+On Windows, right-clicking a folder gives you _New → Text Document, Word
+Document…_. GNOME's Files app has the same _New Document_ menu, but it only
+appears once there's something in your **Templates** folder, and Fedora ships
+it empty.
+
+Every file you put in `~/Templates` becomes an entry in that menu, named after
+the file. I've made a starter set: a blank document, spreadsheet and
+presentation (OpenDocument, so they open in LibreOffice or OnlyOffice), plus a
+text file, Markdown file, shell script and web page.
+[Download the templates](/downloads/fedora-templates.zip) (ZIP) and extract
+them into your Templates folder:
+
+```bash
+unzip ~/Downloads/fedora-templates.zip -d ~/Templates
+```
+
+Then right-click empty space in any folder → **New Document**. Add or rename
+files in `~/Templates` to make the menu your own — anything you save there,
+even a filled-in letterhead or invoice, becomes a template.
 
 ## 3. Flatpak and Flathub
 
@@ -188,16 +239,35 @@ you may want to keep it with multiple monitors.
 
 ### Clipboard History on Super + V
 
-To make Clipboard History work like Windows' `Win + V`, set its shortcut to
-**Super + V** in its settings.
+To make Clipboard History work like Windows' `Win + V`, it needs GNOME's
+Super + V shortcut. Do this in two steps:
 
-> **Pitfall:** GNOME already uses Super + V (and Super + M) for **Show the
-> notification list**. Change it in _Settings → Keyboard → View and Customise
-> Shortcuts → System_, or from the terminal, keeping just Super + M:
->
-> ```bash
-> gsettings set org.gnome.shell.keybindings toggle-message-tray "['<Super>m']"
-> ```
+1. **Free up Super + V.** GNOME uses it (and Super + M) for **Show the
+   notification list**. Go to _Settings → Keyboard → View and Customise
+   Shortcuts → System → Show the notification list_ and remove it, or from
+   the terminal:
+
+   ```bash
+   # Remove the shortcut entirely (the notification list is still a click on the clock)
+   gsettings set org.gnome.shell.keybindings toggle-message-tray "[]"
+
+   # …or keep Super + M for it
+   gsettings set org.gnome.shell.keybindings toggle-message-tray "['<Super>m']"
+   ```
+
+2. **Give it to the extension.** In Clipboard History's settings, set
+   _Toggle the menu_ to **Super + V**, or:
+
+   ```bash
+   dconf write /org/gnome/shell/extensions/clipboard-history/toggle-menu "['<Super>v']"
+   ```
+
+> **Pitfall:** if you skip step 1, Super + V keeps opening the notification
+> list and the extension's shortcut silently does nothing.
+
+While you're in its settings, I raise the history size (mine keeps 3000
+items) and widen the menu a little (43% of the screen), so long copied lines
+are readable.
 
 ## 5. Installing apps
 
