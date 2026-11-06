@@ -184,6 +184,9 @@ just turn it off.
   - _Intelligent autohide:_ **on** (the default)
   - _Launchers → Show Applications icon → Move at beginning of the dock:_
     **on**
+  - _Behaviour → Scroll action:_ **Switch workspace** — scroll over the dock
+    to move between workspaces. Very handy with a mouse and multiple
+    desktops.
 - **Desktop Icons NG (DING)** — puts icons (folders, AppImages, documents…) on
   the desktop. I turn off _Show personal folder_ in its settings.
 - **Emoji Copy** — quick access to emojis from the top bar.
@@ -294,6 +297,53 @@ Apps I install:
 | Social   | Discord                                                  |
 | Tools    | Flatseal, Extension Manager, Fedora Media Writer         |
 
+### Organising the app grid into folders
+
+Between Fedora's own apps and everything above, the app grid fills up fast.
+Group the apps into folders: drag one app onto another to make a folder, then
+open it and click its name to rename it. Fedora already comes with
+**Utilities** and **System** folders, and Alphabetical App Grid keeps
+everything sorted.
+
+A good starting set of folders:
+
+| Folder        | What goes in it                                                                          |
+| ------------- | ---------------------------------------------------------------------------------------- |
+| Office        | OnlyOffice or LibreOffice, Text Editor, Document Viewer, Document Scanner, Calendar, Contacts |
+| Code          | VSCodium, Postman, draw.io, Boxes (virtual machines)                                     |
+| Internet      | Brave, Firefox, Betterbird, Discord, LocalSend                                           |
+| Media         | VLC, Stremio, Video Player, Audio Player, Image Viewer, Camera, OBS, Kdenlive, GIMP      |
+| Games         | Steam, plus any launchers or emulators                                                   |
+| Customisation | Extension Manager, Extensions, Tweaks, Flatseal — anything that changes how the system looks or behaves |
+| Utilities     | Calculator, Characters, Clocks, Weather, Maps, Fonts, Connections, Fedora Media Writer, Help |
+| System        | System Monitor, Disks, Disk Usage Analyser, Logs, Parental Controls                      |
+
+<details>
+<summary>Example: how my laptop is set up</summary>
+
+**Dock:** Files, Software, Brave, Steam, VSCodium, Discord, Terminal
+
+| Folder       | Apps                                                                                                                                                           |
+| ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Accessories  | Extension Manager, Tweaks                                                                                                                                      |
+| Default Apps | Audio Player, Calendar, Camera, Clocks, Contacts, Fedora Media Writer, Files, Help, Image Viewer, Maps, Settings, Software, Video Player, Weather               |
+| Dev Work     | Boxes, Characters, Connections, Fonts, Text Editor, VSCodium                                                                                                   |
+| Games        | Steam, Stardew Valley                                                                                                                                          |
+| Office       | OnlyOffice, Document Viewer, Document Scanner                                                                                                                  |
+| System       | Disk Usage Analyser, Disks, Logs, Parental Controls, System Monitor                                                                                            |
+
+Everything I use often lives in the dock, so the folders are mostly for
+tidying away Fedora's built-in apps.
+
+</details>
+
+> **Folders are for tidying, not finding.** Put the apps you use every day in
+> the dock (right-click an app → _Pin to Dash_) so they're one click away.
+> When you're after anything else, press the **Super** key and start typing
+> its name — that's almost always quicker than opening the app grid and
+> digging through folders. With GNOME Fuzzy App Search on, small typos still
+> find the right app.
+
 ## 6. The finishing touch
 
 To tie it all together — and to be proud of your new, hopefully stable,
@@ -363,6 +413,34 @@ command.
 ## Optional setups
 
 Things only some machines need. Each one says when you'll want it.
+
+### Claude Code in the terminal
+
+**You need this if** you want an AI assistant that works in your terminal and
+your project folders: it can read and edit your code, run commands, and help
+set up the system itself. It needs a Claude subscription or an Anthropic API
+account.
+
+Install it with Anthropic's installer. Nothing else is needed, and it keeps
+itself up to date:
+
+```bash
+curl -fsSL https://claude.ai/install.sh | bash
+```
+
+Then open a new terminal, go to a project folder and start it:
+
+```bash
+cd ~/Projects/my-site
+claude
+```
+
+The first run opens your browser to sign in. After that, just describe what
+you want in plain English. Run `claude --version` to check it installed.
+
+> **Pitfall:** the installer puts `claude` in `~/.local/bin`. Fedora adds
+> that folder to your `PATH` by default, but only for new terminals — if you
+> get _"command not found"_, close the terminal and open a new one.
 
 ### Mounting an extra drive at boot
 
