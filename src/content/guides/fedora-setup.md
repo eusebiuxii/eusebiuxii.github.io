@@ -166,7 +166,7 @@ Do this at your own discretion. I've had no problems with the extensions below
 even when they were marked as incompatible — and if one does misbehave, you can
 just turn it off.
 
-### Extensions I use
+### My favorite extensions
 
 - **Alphabetical App Grid** — sorts the app grid and folders alphabetically.
   You can choose whether folders go first, and whether their contents get

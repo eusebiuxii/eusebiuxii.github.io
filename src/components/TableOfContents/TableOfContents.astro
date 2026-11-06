@@ -81,9 +81,34 @@ const { headings } = Astro.props
   function highlight(id: string | undefined) {
     for (const link of links) {
       if (link.dataset.tocLink === id) {
+        if (!link.hasAttribute("aria-current")) keepInView(link)
         link.setAttribute("aria-current", "location")
       } else {
         link.removeAttribute("aria-current")
+      }
+    }
+  }
+
+  /*
+   * A long list scrolls inside the sidebar (with its scrollbar hidden), so
+   * scroll it just enough to keep the highlighted section visible. Only the
+   * sidebar moves; scrollIntoView() would scroll the whole page as well.
+   */
+  function keepInView(link: HTMLElement) {
+    const box = link.closest<HTMLElement>("aside")
+    if (!box || box.scrollHeight <= box.clientHeight) return
+
+    const margin = 32
+    const linkTop = link.getBoundingClientRect().top
+    const boxTop = box.getBoundingClientRect().top
+    const top = linkTop - boxTop + box.scrollTop
+
+    if (top - margin < box.scrollTop) {
+      box.scrollTo({ top: top - margin })
+    } else {
+      const bottom = top + link.offsetHeight + margin
+      if (bottom > box.scrollTop + box.clientHeight) {
+        box.scrollTo({ top: bottom - box.clientHeight })
       }
     }
   }

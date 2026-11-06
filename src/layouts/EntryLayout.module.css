@@ -17,7 +17,16 @@
   max-height: calc(100svh - var(--header-offset) - var(--space-6));
   /* Line up with the "← All projects" link */
   padding-top: 0.125rem;
+  /*
+   * A long contents list still scrolls (and follows the current section),
+   * but without a second scrollbar next to the page's own.
+   */
   overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.aside::-webkit-scrollbar {
+  display: none;
 }
 
 .tocTitle {
