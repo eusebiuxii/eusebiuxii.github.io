@@ -268,6 +268,9 @@ Super + V shortcut. Do this in two steps:
 > **Pitfall:** if you skip step 1, Super + V keeps opening the notification
 > list and the extension's shortcut silently does nothing.
 
+Laptop with an AI / Copilot key? It can open Clipboard History too — see
+[repurposing the AI key](#repurposing-the-ai-copilot-key).
+
 While you're in its settings, I raise the history size (mine keeps 3000
 items) and widen the menu a little (43% of the screen), so long copied lines
 are readable.
@@ -441,6 +444,124 @@ you want in plain English. Run `claude --version` to check it installed.
 > **Pitfall:** the installer puts `claude` in `~/.local/bin`. Fedora adds
 > that folder to your `PATH` by default, but only for new terminals — if you
 > get _"command not found"_, close the terminal and open a new one.
+
+### Repurposing the AI (Copilot) key
+
+**You need this if** your laptop has the AI / Copilot key that newer Windows
+laptops ship with, usually next to the right Alt. On Linux it does nothing by
+default, but you can turn it into something useful. I use it to open
+[Clipboard History](#clipboard-history-on-super--v), just like Super + V.
+
+#### Why it needs an extra tool
+
+The AI key doesn't send a key of its own. When you press it, the laptop
+pretends you pressed **Shift + Super + F23** all at once. GNOME's shortcut
+settings don't handle that combination reliably, so setting it as a shortcut
+in Settings usually does nothing.
+
+[keyd](https://github.com/rvaiya/keyd) fixes this. It's a small background
+service that sits between your keyboard and the system, spots that exact
+combination, and swaps it for whatever key or shortcut you choose, before
+GNOME ever sees it. Shift and Super on their own keep working exactly as
+before.
+
+> **Run these commands one at a time.** Each one starts with `sudo`, which
+> asks for your password. If you paste several lines at once, the password
+> prompt can swallow the lines after it, and they never run.
+
+#### 1. Install keyd
+
+keyd isn't in Fedora's own repositories, so first add the community-maintained
+[Copr repository](https://copr.fedorainfracloud.org/coprs/alternateved/keyd/)
+that packages it:
+
+```bash
+sudo dnf copr enable alternateved/keyd
+```
+
+Then install it:
+
+```bash
+sudo dnf install keyd
+```
+
+#### 2. Create the config file
+
+keyd reads its settings from `/etc/keyd/default.conf`. This command creates
+the file with everything needed to make the AI key open Clipboard History:
+
+```bash
+printf '[ids]\n*\n\n[meta+shift]\nf23 = M-v\n' | sudo tee /etc/keyd/default.conf
+```
+
+It prints the file back when it's done, which should look like this:
+
+```ini
+[ids]
+*
+
+[meta+shift]
+f23 = M-v
+```
+
+What each part means:
+
+- `[ids]` and `*` — which keyboards to apply this to. `*` means all of them.
+- `[meta+shift]` — the rules below only apply while Super (keyd calls it
+  _meta_) and Shift are both held, which is exactly what the AI key does.
+- `f23 = M-v` — when F23 arrives on top of those, send **Super + V**
+  instead. `M-` means Super, `C-` means Ctrl, `A-` means Alt and `S-` means
+  Shift.
+
+Prefer doing it by hand? Run `sudo nano /etc/keyd/default.conf`, paste in the
+five lines above, then save with Ctrl + O and exit with Ctrl + X.
+
+Before turning it on, check the file for mistakes:
+
+```bash
+keyd check /etc/keyd/default.conf
+```
+
+It should end with _"No errors found."_
+
+#### 3. Turn keyd on
+
+Start keyd now and have it start automatically at every boot:
+
+```bash
+sudo systemctl enable --now keyd
+```
+
+Press the AI key and Clipboard History should open.
+
+#### Choosing something else
+
+You can make the AI key do something else by changing the `f23 = …` line.
+Open the file with `sudo nano /etc/keyd/default.conf`, swap the line for one
+of these, and apply the change:
+
+```bash
+sudo keyd reload
+```
+
+| Line                 | The AI key becomes…                                                                                                         |
+| -------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| `f23 = M-v`          | Clipboard History (Super + V), like Windows' clipboard                                                                       |
+| `f23 = rightcontrol` | A right Ctrl key, which many of these laptops lost to make room for the AI key                                               |
+| `f23 = leftmeta`     | A Super key: tap it to open the overview and start searching for an app                                                       |
+| `f23 = C-A-t`        | Ctrl + Alt + T, which you can bind to anything in _Settings → Keyboard → Custom Shortcuts_ (opening a terminal, for example) |
+
+#### If something goes wrong
+
+- **The AI key does nothing:** check keyd is running with
+  `systemctl status keyd`. To see what keyd receives when you press keys,
+  run `sudo keyd monitor` and press the AI key (Ctrl + C to stop).
+- **Typing behaves oddly:** a broken config can confuse keyd. Press
+  **Backspace + Escape + Enter** together to stop it immediately, then fix
+  the file.
+- **To undo all of it:** turn keyd off with
+  `sudo systemctl disable --now keyd`, and the AI key goes back to doing
+  nothing.
 
 ### Mounting an extra drive at boot
 
