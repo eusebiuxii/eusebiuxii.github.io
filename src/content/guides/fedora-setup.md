@@ -172,7 +172,8 @@ just turn it off.
   You can choose whether folders go first, and whether their contents get
   sorted too.
 - **Blur my Shell** — blurs the background of the overview, lock screen, dock
-  and top bar. It makes everything look better; I keep the defaults.
+  and top bar. It makes everything look better; I keep the defaults on a
+  desktop. On a laptop, see [below](#blur-my-shell-on-a-laptop).
 - **Clipboard History** — like the clipboard history on Windows: keeps track of
   what you've copied. See [below](#clipboard-history-on-super--v) to put it on
   the same shortcut.
@@ -221,6 +222,35 @@ Situational ones:
   notifications there instead of under the calendar.
 - **Apps on Top** — moves the apps icon to the start of the dock. Only needed
   if you _don't_ use Dash to Dock, which has this built in.
+
+### Blur my Shell on a laptop
+
+Blur my Shell blurs things in one of two ways:
+
+- **Static blur** blurs a copy of your wallpaper once and reuses it. It costs
+  almost nothing.
+- **Dynamic blur** re-blurs whatever is behind it, windows included, on every
+  frame. That looks the most like real glass, but it's work for the GPU,
+  especially during animations like opening the overview.
+
+The overview and lock screen already use static blur, but the **top bar** and
+**dock** default to dynamic. On a desktop PC you won't notice. On a laptop,
+especially on battery with the **Balanced** power profile, the graphics chip
+idles at a low speed to save power. The first time you open the overview it
+has to speed up while also redrawing the blur, which can show up as a short
+stutter. Opening it again straight away feels smoother, then the stutter
+comes back after the laptop has been idle for a while.
+
+If that bothers you, switch the **top bar** to static blur (_Blur my Shell →
+Panel → Blur type → Static_). It sits over the wallpaper most of the time, so it
+looks almost the same and saves the most. The dock can stay dynamic if you
+like how it looks over windows. Choosing the _Performance_ power profile in
+the quick settings, or plugging in, also smooths things out, at the cost of
+battery life.
+
+> **App folders** always use dynamic blur; there's no static option for them.
+> If opening folders feels slow, the only option is turning their blur off in
+> _Blur my Shell → App folders_.
 
 ### Brightness control on a desktop
 
