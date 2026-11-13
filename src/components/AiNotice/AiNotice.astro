@@ -1,24 +1,61 @@
 ---
 import styles from "./AiNotice.module.css"
 
-/** Disclosure shown at the top of entries that were built with AI help */
+/**
+ * Disclosure shown at the top of entries that were built with AI help.
+ * Clicking it expands a short note on how I use AI in my projects.
+ */
 ---
 
-<aside class={styles.notice} aria-label="AI disclosure">
-  <span class={styles.icon} aria-hidden="true">
-    <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-      <path
-        d="M11 2.5c.4 3.9 2.6 6.1 6.5 6.5-3.9.4-6.1 2.6-6.5 6.5-.4-3.9-2.6-6.1-6.5-6.5 3.9-.4 6.1-2.6 6.5-6.5Z"
-      ></path>
-      <path
-        d="M18.5 13.5c.2 1.9 1.1 2.8 3 3-1.9.2-2.8 1.1-3 3-.2-1.9-1.1-2.8-3-3 1.9-.2 2.8-1.1 3-3Z"
-      ></path>
-    </svg>
-  </span>
-  <div class={styles.body}>
-    <p class={styles.label}>AI-assisted</p>
-    <p class={styles.text}>
-      This project was built with the help of Claude, an AI assistant.
+<details class={styles.notice}>
+  <summary class={styles.summary}>
+    <span class={styles.icon} aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+        <path
+          d="M11 2.5c.4 3.9 2.6 6.1 6.5 6.5-3.9.4-6.1 2.6-6.5 6.5-.4-3.9-2.6-6.1-6.5-6.5 3.9-.4 6.1-2.6 6.5-6.5Z"
+        ></path>
+        <path
+          d="M18.5 13.5c.2 1.9 1.1 2.8 3 3-1.9.2-2.8 1.1-3 3-.2-1.9-1.1-2.8-3-3 1.9-.2 2.8-1.1 3-3Z"
+        ></path>
+      </svg>
+    </span>
+    <span class={styles.heading}>
+      <span class={styles.label}>AI-assisted</span>
+      <span class={styles.text}>
+        This project was built with the help of Claude, an AI assistant.
+      </span>
+    </span>
+    <span class={styles.toggle}>
+      <span class={styles.toggleText}>How I use AI</span>
+      <svg
+        class={styles.chevron}
+        viewBox="0 0 24 24"
+        width="16"
+        height="16"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <path d="m6 9 6 6 6-6"></path>
+      </svg>
+    </span>
+  </summary>
+
+  <div class={styles.content}>
+    <p>
+      In my spare time I build things that make everyday life a bit better,
+      from GNOME extensions and home servers to small changes on my car or
+      house. AI helps with a lot of it: spotting pitfalls, improving ideas and
+      filling in the gaps when I'm working with something new.
+    </p>
+    <p>
+      I don't shy away from useful tools, and AI is one of them. If something
+      can be done better, understood quicker or built with fewer mistakes, it
+      would be foolish to reject it. I still make the decisions, keep learning
+      and always verify the result.
     </p>
   </div>
-</aside>
+</details>
