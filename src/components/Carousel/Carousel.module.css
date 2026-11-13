@@ -108,15 +108,24 @@
   transform: translateY(-50%);
   transition:
     opacity var(--transition-fast),
-    background-color var(--transition-fast);
+    background-color var(--transition-fast),
+    transform var(--transition-fast);
 }
 
 .arrow[hidden] {
   display: none;
 }
 
-.arrow:hover {
-  background-color: var(--color-surface);
+/* Only real hover: on touch screens :hover sticks after a tap */
+@media (hover: hover) {
+  .arrow:hover {
+    background-color: var(--color-surface);
+  }
+}
+
+/* Pressed feedback, works for both mouse clicks and taps */
+.arrow:active {
+  transform: translateY(-50%) scale(0.9);
 }
 
 .arrow:focus-visible {

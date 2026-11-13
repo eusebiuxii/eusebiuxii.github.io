@@ -13,6 +13,12 @@
 html {
   -webkit-text-size-adjust: none;
   text-size-adjust: none;
+  /*
+   * No blue flash when tapping links and buttons on mobile. Inherited, so
+   * this covers the whole site; elements give their own pressed/hover
+   * feedback, and keyboard focus rings (:focus-visible) are unaffected.
+   */
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
