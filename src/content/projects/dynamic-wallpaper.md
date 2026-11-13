@@ -5,6 +5,7 @@ date: 2026-11-06
 tags: [gnome, javascript, gjs, linux, extension]
 cover: ./covers/dynamic-wallpaper.webp
 repo: https://github.com/eusebiuxii/dynamic-wallpaper-gnome-extension
+aiAssisted: true
 ---
 
 ## Idea & introduction
@@ -24,9 +25,6 @@ or have it switch GNOME between light and dark style on its own schedule.
 
 It was also my first time writing a GNOME extension, so a big part of the
 project was learning how GNOME Shell loads and runs extensions.
-
-> Complete transparency: this extension was built with the help of Claude,
-> an AI assistant, as noted in the project's README.
 
 ## Technologies used
 

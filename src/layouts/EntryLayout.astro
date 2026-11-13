@@ -1,4 +1,5 @@
 ---
+import AiNotice from "@/components/AiNotice/AiNotice.astro"
 import BaseLayout from "@/layouts/BaseLayout.astro"
 import PageHeader from "@/components/PageHeader/PageHeader.astro"
 import Prose from "@/components/Prose/Prose.astro"
@@ -20,6 +21,8 @@ interface Props {
   back?: { href: string; label: string }
   /** Headings from `render(entry)`, used for the "On this page" contents */
   headings?: MarkdownHeading[]
+  /** Show the AI-assisted disclosure above the content */
+  aiAssisted?: boolean
 }
 
 const {
@@ -31,6 +34,7 @@ const {
   links = [],
   back,
   headings = [],
+  aiAssisted = false,
 } = Astro.props
 
 // Sections (h2) and subsections (h3); not worth a menu for a single heading
@@ -90,6 +94,8 @@ const hasToc = tocHeadings.length >= 2
           </details>
         )
       }
+
+      {aiAssisted && <AiNotice />}
 
       <Prose>
         <slot />

@@ -21,6 +21,8 @@ const projects = defineCollection({
       repo: z.url().optional(),
       demo: z.url().optional(),
       featured: z.boolean().default(false),
+      // Shows the "AI-assisted" disclosure at the top of the page
+      aiAssisted: z.boolean().default(false),
       draft: z.boolean().default(false),
     }),
 })

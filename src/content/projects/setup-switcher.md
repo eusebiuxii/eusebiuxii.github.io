@@ -5,6 +5,7 @@ date: 2026-11-11
 tags: [gnome, javascript, gjs, linux, d-bus]
 cover: ./covers/setup-switcher.webp
 repo: https://github.com/eusebiuxii/setup-switcher-gnome-extension
+aiAssisted: true
 ---
 
 ## Idea & introduction
