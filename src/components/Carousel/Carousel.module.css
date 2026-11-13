@@ -1,0 +1,206 @@
+.carousel {
+  /* Every image is shown at this height; widths follow each image's shape */
+  --slide-height: clamp(16rem, 60vw, 26rem);
+  --fade-size: 5rem;
+
+  width: 100%;
+}
+
+.viewport {
+  position: relative;
+}
+
+/* ---------- Strip of images ---------- */
+
+.track {
+  --fade-start: 0px;
+  --fade-end: 0px;
+
+  position: relative;
+  display: flex;
+  gap: var(--space-3);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  border-radius: var(--radius-lg);
+  /* Fade out an edge when there's more to scroll to on that side */
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 var(--fade-start),
+    #000 calc(100% - var(--fade-end)),
+    transparent 100%
+  );
+}
+
+.track[data-fade-start] {
+  --fade-start: var(--fade-size);
+}
+
+.track[data-fade-end] {
+  --fade-end: var(--fade-size);
+}
+
+.track::-webkit-scrollbar {
+  display: none;
+}
+
+.track:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+.slide {
+  position: relative;
+  flex: none;
+  height: var(--slide-height);
+  margin: 0;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background-color: var(--color-surface-muted);
+  cursor: pointer;
+  scroll-snap-align: center;
+}
+
+.slide img {
+  display: block;
+  width: auto;
+  height: 100%;
+  border-radius: 0;
+}
+
+/* The selection border, drawn inside the image so the strip can't clip it */
+.slide::after {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 3px var(--color-accent);
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+  content: "";
+  pointer-events: none;
+}
+
+.slide[data-selected]::after {
+  opacity: 1;
+}
+
+/* ---------- Arrows ---------- */
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background-color: var(--color-surface-glass);
+  backdrop-filter: blur(var(--blur-glass));
+  color: var(--color-text);
+  box-shadow: var(--shadow-md);
+  cursor: pointer;
+  transform: translateY(-50%);
+  transition:
+    opacity var(--transition-fast),
+    background-color var(--transition-fast);
+}
+
+.arrow[hidden] {
+  display: none;
+}
+
+.arrow:hover {
+  background-color: var(--color-surface);
+}
+
+.arrow:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+.arrow:disabled {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.arrow svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.prev {
+  left: var(--space-3);
+}
+
+.next {
+  right: var(--space-3);
+}
+
+/* ---------- Caption + dots ---------- */
+
+.footer {
+  display: flex;
+  gap: var(--space-4);
+  align-items: center;
+  justify-content: space-between;
+  margin-top: var(--space-3);
+}
+
+.caption {
+  min-width: 0;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.dots {
+  display: flex;
+  flex-shrink: 0;
+  gap: var(--space-2);
+}
+
+.dots[hidden] {
+  display: none;
+}
+
+.dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background-color: var(--color-border);
+  cursor: pointer;
+  transition:
+    width var(--transition-fast),
+    background-color var(--transition-fast);
+}
+
+.dot:hover {
+  background-color: var(--color-text-muted);
+}
+
+.dot[aria-current="true"] {
+  width: 1.25rem;
+  background-color: var(--color-accent);
+}
+
+.dot:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slide::after,
+  .arrow,
+  .dot {
+    transition: none;
+  }
+}

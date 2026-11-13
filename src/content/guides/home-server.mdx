@@ -7,6 +7,11 @@ difficulty: intermediate
 cover: ./covers/home-server.webp
 ---
 
+import Carousel from "@/components/Carousel/Carousel.astro"
+import motherboard from "./images/home-server/motherboard.webp"
+import build from "./images/home-server/build.webp"
+import finished from "./images/home-server/finished.webp"
+
 This is the home server I built in mid 2026: a small NAS-style box running
 [Proxmox VE](https://www.proxmox.com/en/products/proxmox-virtual-environment/overview),
 with a few services I use every day. It replaces Google Drive for my files,
@@ -33,18 +38,18 @@ I wanted something quiet and low-power with room for several hard drives.
 Most of the parts are used or bought from marketplaces, which kept the cost
 down a lot. The 8th-gen Intel CPU, for example, cost £22 on eBay.
 
-| Part         | What I used                                                          | From       | Price       |
-| ------------ | -------------------------------------------------------------------- | ---------- | ----------- |
-| Case         | [Jonsbo](https://www.jonsbo.com) N4 NAS case (6× 3.5" bays, 2× 2.5") | AliExpress | £107.07     |
-| Motherboard  | Intel C246 NAS board (8× SATA, 3× 2.5 GbE + 1× 1 GbE)                | AliExpress | £94.70      |
-| CPU          | Intel Core i5-8500 (6 cores, UHD 630 graphics)                       | eBay       | £22.00      |
-| CPU cooler   | Jonsbo HP400S low-profile                                            | AliExpress | £19.29      |
-| Power supply | Corsair SF750 (SFX, 80 PLUS Platinum)                                | eBay       | £92.51      |
-| RAM          | 32 GB Kingston DDR4 2666 MHz (single stick)                          | CeX        | £82.50      |
-| Boot SSD     | Corsair MP700 PRO 2 TB NVMe                                          | CeX        | £172.50     |
-| Hard drives  | 2× WD Purple 4 TB (WD40PURZ)                                         | CeX        | £130.00     |
-| Additional Hard drive   | 1× WD Red Pro 4 TB (WD4001FFSX)                                      | CeX        | £80.50      |
-|              |                                          and                            | **Total**  | **£801.07** |
+| Part                  | What I used                                                          | From       | Price       |
+| --------------------- | -------------------------------------------------------------------- | ---------- | ----------- |
+| Case                  | [Jonsbo](https://www.jonsbo.com) N4 NAS case (6× 3.5" bays, 2× 2.5") | AliExpress | £107.07     |
+| Motherboard           | Intel C246 NAS board (8× SATA, 3× 2.5 GbE + 1× 1 GbE)                | AliExpress | £94.70      |
+| CPU                   | Intel Core i5-8500 (6 cores, UHD 630 graphics)                       | eBay       | £22.00      |
+| CPU cooler            | Jonsbo HP400S low-profile                                            | AliExpress | £19.29      |
+| Power supply          | Corsair SF750 (SFX, 80 PLUS Platinum)                                | eBay       | £92.51      |
+| RAM                   | 32 GB Kingston DDR4 2666 MHz (single stick)                          | CeX        | £82.50      |
+| Boot SSD              | Corsair MP700 PRO 2 TB NVMe                                          | CeX        | £172.50     |
+| Hard drives           | 2× WD Purple 4 TB (WD40PURZ)                                         | CeX        | £130.00     |
+| Additional Hard drive | 1× WD Red Pro 4 TB (WD4001FFSX)                                      | CeX        | £80.50      |
+|                       | and                                                                  | **Total**  | **£801.07** |
 
 A few notes on these choices:
 
@@ -60,8 +65,26 @@ A few notes on these choices:
 
 From the bare motherboard to the finished server on the shelf:
 
-| ![The motherboard with the Jonsbo cooler and NVMe SSD fitted, before going into the case](./images/home-server/motherboard.webp) | ![The open case on the desk midway through the build, with the motherboard installed](./images/home-server/build.webp) | ![The finished server on a shelf, with the front door open showing the three hard drives](./images/home-server/finished.webp) |
-| ------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+<Carousel
+  label="Photos of the home server build"
+  images={[
+    {
+      src: motherboard,
+      alt: "The motherboard with the Jonsbo cooler and NVMe SSD fitted, before going into the case",
+      caption: "The motherboard, cooler and NVMe SSD, ready to go in",
+    },
+    {
+      src: build,
+      alt: "The open case on the desk midway through the build, with the motherboard installed",
+      caption: "Midway through the build",
+    },
+    {
+      src: finished,
+      alt: "The finished server on a shelf, with the front door open showing the three hard drives",
+      caption: "The finished server, with the drive bay door open",
+    },
+  ]}
+/>
 
 ## 2. Proxmox and storage
 
