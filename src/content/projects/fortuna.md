@@ -5,6 +5,7 @@ date: 2022-11-23
 tags: [ios, swift, xcode, game-dev]
 cover: ./covers/fortuna.webp
 repo: https://github.com/eusebiuxii/Fortuna
+featured: true
 ---
 
 ## Idea & introduction

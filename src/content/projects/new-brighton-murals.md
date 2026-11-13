@@ -5,7 +5,6 @@ date: 2022-12-15
 tags: [ios, swift, xcode, mapkit]
 cover: ./covers/new-brighton-murals.webp
 repo: https://github.com/eusebiuxii/NewBrightonMurals
-featured: true
 ---
 
 ## Idea & introduction

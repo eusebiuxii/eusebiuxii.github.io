@@ -6,7 +6,6 @@ tags: [unity, c#, game-dev]
 cover: ./covers/icarus-initiative.webp
 repo: https://github.com/eusebiuxii/icarus-initiative
 demo: https://eusebiuxii.itch.io/icarus-initiative
-featured: true
 ---
 
 ## Idea & introduction

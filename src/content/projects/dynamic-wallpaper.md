@@ -6,6 +6,7 @@ tags: [gnome, javascript, gjs, linux, extension]
 cover: ./covers/dynamic-wallpaper.webp
 repo: https://github.com/eusebiuxii/dynamic-wallpaper-gnome-extension
 aiAssisted: true
+featured: true
 ---
 
 ## Idea & introduction
