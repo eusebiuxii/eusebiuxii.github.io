@@ -14,7 +14,8 @@ export const getStaticPaths = (async () => {
 
 const { guide } = Astro.props
 const { Content, headings } = await render(guide)
-const { title, description, date, updated, tags, difficulty } = guide.data
+const { title, description, date, updated, tags, difficulty, cover } =
+  guide.data
 
 const meta = [
   formatDate(date),
@@ -30,6 +31,7 @@ const meta = [
   meta={meta}
   tags={tags}
   headings={headings}
+  image={cover}
   back={{ href: "/guides", label: "All guides" }}
 >
   <Content />

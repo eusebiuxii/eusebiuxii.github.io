@@ -1,19 +1,43 @@
 ---
 import "@/styles/global.css"
+import { getImage } from "astro:assets"
+import type { ImageMetadata } from "astro"
 import Header from "@/components/Header/Header.astro"
 import Footer from "@/components/Footer/Footer.astro"
 import { site } from "@/site.config"
 import styles from "./BaseLayout.module.css"
+// Link-preview image for pages without their own (the portfolio's cover)
+import defaultShareImage from "@/content/projects/covers/this-site.webp"
 
 interface Props {
   /** Page title; the site name is appended automatically */
   title?: string
   description?: string
+  /** Image shown when the page is shared (WhatsApp, Discord, iMessage…) */
+  image?: ImageMetadata
+  /** "article" for a single project or guide, "website" otherwise */
+  type?: "website" | "article"
 }
 
-const { title, description = site.description } = Astro.props
+const {
+  title,
+  description = site.description,
+  image = defaultShareImage,
+  type = "website",
+} = Astro.props
 const pageTitle = title ? `${title} · ${site.name}` : site.title
 const canonical = new URL(Astro.url.pathname, Astro.site)
+
+// 1200×630 JPEG: the size link previews expect, in a format every app reads
+const shareImage = await getImage({
+  src: image,
+  width: 1200,
+  height: 630,
+  fit: "cover",
+  format: "jpg",
+  quality: 80,
+})
+const shareImageUrl = new URL(shareImage.src, Astro.site)
 ---
 
 <!doctype html>
@@ -27,7 +51,15 @@ const canonical = new URL(Astro.url.pathname, Astro.site)
     <meta name="description" content={description} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={type} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:image" content={shareImageUrl} />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={title ?? site.name} />
+    <meta name="twitter:card" content="summary_large_image" />
 
     <!-- Apply the saved/preferred theme before first paint to avoid a flash -->
     <script is:inline>

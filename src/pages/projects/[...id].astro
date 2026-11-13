@@ -14,7 +14,7 @@ export const getStaticPaths = (async () => {
 
 const { project } = Astro.props
 const { Content, headings } = await render(project)
-const { title, description, date, tags, repo, demo, aiAssisted } =
+const { title, description, date, tags, repo, demo, aiAssisted, cover } =
   project.data
 
 const links = [
@@ -31,6 +31,7 @@ const links = [
   tags={tags}
   links={links}
   headings={headings}
+  image={cover}
   aiAssisted={aiAssisted}
   back={{ href: "/projects", label: "All projects" }}
 >

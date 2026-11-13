@@ -6,7 +6,7 @@ import Prose from "@/components/Prose/Prose.astro"
 import TableOfContents from "@/components/TableOfContents/TableOfContents.astro"
 import TagList from "@/components/TagList/TagList"
 import { cn } from "@/lib/utils"
-import type { MarkdownHeading } from "astro"
+import type { ImageMetadata, MarkdownHeading } from "astro"
 import styles from "./EntryLayout.module.css"
 
 /** Layout for a single project or guide page (and long-form pages like About) */
@@ -23,6 +23,8 @@ interface Props {
   headings?: MarkdownHeading[]
   /** Show the AI-assisted disclosure above the content */
   aiAssisted?: boolean
+  /** Cover image, used as the link preview when the page is shared */
+  image?: ImageMetadata
 }
 
 const {
@@ -35,6 +37,7 @@ const {
   back,
   headings = [],
   aiAssisted = false,
+  image,
 } = Astro.props
 
 // Sections (h2) and subsections (h3); not worth a menu for a single heading
@@ -42,7 +45,12 @@ const tocHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3)
 const hasToc = tocHeadings.length >= 2
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout
+  title={title}
+  description={description}
+  image={image}
+  type={back ? "article" : "website"}
+>
   <div class={cn("container", hasToc && styles.withToc)}>
     {
       hasToc && (
