@@ -4,6 +4,7 @@ description: How I built a low-cost home server from used parts, what runs on it
 date: 2026-11-13
 tags: [linux, proxmox, self-hosting, home-server]
 difficulty: intermediate
+cover: ./covers/home-server.webp
 ---
 
 This is the home server I built in mid 2026: a small NAS-style box running
@@ -56,6 +57,11 @@ A few notes on these choices:
 - **WD Purple drives are surveillance drives**, made to be written to 24/7.
   They're fine for general storage and ideal for CCTV recordings.
 - **One RAM stick** leaves a slot free to go to 64 GB later.
+
+From the bare motherboard to the finished server on the shelf:
+
+| ![The motherboard with the Jonsbo cooler and NVMe SSD fitted, before going into the case](./images/home-server/motherboard.webp) | ![The open case on the desk midway through the build, with the motherboard installed](./images/home-server/build.webp) | ![The finished server on a shelf, with the front door open showing the three hard drives](./images/home-server/finished.webp) |
+| ------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
 
 ## 2. Proxmox and storage
 
