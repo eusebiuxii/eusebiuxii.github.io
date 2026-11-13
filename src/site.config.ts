@@ -6,7 +6,7 @@ export const site = {
   name: "Eusebiu Moldovan",
   title: "Eusebiu Moldovan — Software Dev Portfolio",
   description:
-    "Here is my personal portfolio. A hub i fill with projects I've built and tech related guides for anyone who finds them useful.",
+    "My personal portfolio: a hub for projects I've built and tech guides for anyone who finds them useful.",
   nav: [
     { label: "Projects", href: "/projects" },
     { label: "Guides", href: "/guides" },

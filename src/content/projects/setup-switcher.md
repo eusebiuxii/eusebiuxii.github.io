@@ -1,6 +1,6 @@
 ---
 title: Setup Switcher
-description: A GNOME Shell extension that switches between saved display setups, audio outputs and launch commands from Quick Settings, made for a desk and TV gaming PC.
+description: A GNOME extension that switches displays, audio and launch commands from Quick Settings, made for a desk and TV gaming PC.
 date: 2026-11-11
 tags: [gnome, javascript, gjs, linux, d-bus]
 cover: ./covers/setup-switcher.webp

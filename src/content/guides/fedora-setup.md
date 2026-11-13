@@ -1,6 +1,6 @@
 ---
 title: Setting up Fedora GNOME the OEM+ way
-description: My checklist for turning a fresh Fedora install into a polished desktop — settings, GNOME extensions, apps, and the pitfalls I've hit along the way.
+description: "My checklist for turning a fresh Fedora install into a polished desktop: settings, extensions, apps and pitfalls to avoid."
 date: 2026-10-11
 tags: [linux, fedora, gnome]
 difficulty: beginner
