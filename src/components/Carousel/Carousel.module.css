@@ -1,6 +1,9 @@
 .carousel {
-  /* Every image is shown at this height; widths follow each image's shape */
-  --slide-height: clamp(16rem, 60vw, 26rem);
+  /*
+   * Every image is shown at this height; widths follow each image's shape.
+   * A page can override it with the component's `height` prop.
+   */
+  --slide-height: clamp(14rem, 55vw, 22rem);
   --fade-size: 5rem;
 
   width: 100%;

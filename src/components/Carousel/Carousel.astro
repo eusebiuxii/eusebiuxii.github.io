@@ -16,15 +16,21 @@ interface Props {
   /** What the images show, read out by screen readers */
   label: string
   images: { src: ImageMetadata; alt: string; caption?: string }[]
+  /**
+   * Height of every image, as any CSS length. Widths follow each image's
+   * shape. Defaults to the --slide-height in Carousel.module.css.
+   */
+  height?: string
 }
 
-const { label, images } = Astro.props
+const { label, images, height } = Astro.props
 ---
 
 <section
   class={styles.carousel}
   aria-roledescription="carousel"
   aria-label={label}
+  style={height ? `--slide-height: ${height}` : undefined}
   data-carousel
 >
   <div class={styles.viewport}>
