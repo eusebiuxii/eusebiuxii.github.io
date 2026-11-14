@@ -66,7 +66,8 @@
   scroll-snap-align: center;
 }
 
-.slide img {
+/* .track raises specificity above .prose img (which sets height: auto) */
+.track .slide img {
   display: block;
   width: auto;
   height: 100%;

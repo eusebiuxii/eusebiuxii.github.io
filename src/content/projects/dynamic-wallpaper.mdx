@@ -9,6 +9,12 @@ aiAssisted: true
 featured: true
 ---
 
+import Carousel from "@/components/Carousel/Carousel.astro"
+import dynamicSet from "./images/dynamic-wallpaper/dynamic-set.webp"
+import wallpapers from "./images/dynamic-wallpaper/wallpapers.webp"
+import schedule from "./images/dynamic-wallpaper/schedule.webp"
+import theme from "./images/dynamic-wallpaper/theme.webp"
+
 ## Idea & introduction
 
 macOS has dynamic wallpapers that slowly change through the day, from a
@@ -57,16 +63,37 @@ project was learning how GNOME Shell loads and runs extensions.
 - The right wallpaper shows **from the moment you log in**, with no flash of
   the old one
 
-![The Dynamic set tab: sixteen pictures placed around a 24-hour clock that follows the sun](./images/dynamic-wallpaper/dynamic-set.webp)
+<Carousel
+  label="Screenshots of the Dynamic Wallpaper settings window"
+  height="clamp(16rem, 70vw, 30rem)"
+  images={[
+    {
+      src: dynamicSet,
+      alt: "The Dynamic set tab: sixteen pictures placed around a 24-hour clock that follows the sun",
+      caption: "The Dynamic set clock",
+    },
+    {
+      src: wallpapers,
+      alt: "Day, night, sunrise and sunset wallpapers",
+      caption: "Day, night, sunrise and sunset wallpapers",
+    },
+    {
+      src: schedule,
+      alt: "Location search and today's timetable",
+      caption: "Location search and today's timetable",
+    },
+    {
+      src: theme,
+      alt: "Switching between light and dark style",
+      caption: "Switching between light and dark style",
+    },
+  ]}
+/>
 
 The Dynamic set clock is the most involved part of the settings window. The
 track is coloured by how high the sun is, and each dot is a picture. Dots
 can be dragged around the clock and snap to sun events like dawn, sunrise or
 dusk. The preview date slider shows how those times move through the year.
-
-| Wallpapers                                                                               | Schedule                                                                           | Theme                                                                            |
-| ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
-| ![Day, night, sunrise and sunset wallpapers](./images/dynamic-wallpaper/wallpapers.webp) | ![Location search and today's timetable](./images/dynamic-wallpaper/schedule.webp) | ![Switching between light and dark style](./images/dynamic-wallpaper/theme.webp) |
 
 ## How it works
 

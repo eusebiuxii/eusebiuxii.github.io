@@ -78,6 +78,11 @@
 }
 
 .prose img {
+  /*
+   * Astro sets width/height attributes; when max-width shrinks an image,
+   * auto height keeps its shape instead of stretching it.
+   */
+  height: auto;
   border-radius: var(--radius-md);
 }
 
