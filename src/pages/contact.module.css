@@ -24,36 +24,111 @@
 
 .cards {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
+  /* Two columns on wide screens, one on phones */
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+  max-width: 56rem;
   gap: var(--space-4);
   padding: 0;
   list-style: none;
 }
 
+/*
+ * Each card takes its platform's colours from these variables:
+ *   --brand          solid colour (handle text, backdrop logo)
+ *   --brand-fill     icon tile background (a gradient for Instagram)
+ *   --brand-on-fill  icon colour on that tile
+ *   --brand-border   card border (gradient-capable)
+ */
 .card {
+  --brand: var(--color-text);
+  --brand-fill: var(--color-surface-muted);
+  --brand-on-fill: var(--color-text);
+  --brand-border: color-mix(in oklch, var(--color-text) 35%, transparent);
+
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: var(--space-1);
+  gap: var(--space-3);
   padding: var(--space-5);
-  border: 1px solid var(--color-border);
+  overflow: hidden;
+  /* Gradient-friendly border: the border box shows the brand colours,
+     the padding box is painted with the card surface on top */
+  border: 1.5px solid transparent;
   border-radius: var(--radius-lg);
-  background-color: var(--color-surface);
+  background:
+    linear-gradient(var(--color-surface), var(--color-surface)) padding-box,
+    var(--brand-border) border-box;
   box-shadow: var(--shadow-sm);
+  isolation: isolate;
   transition:
-    border-color var(--transition-fast),
     box-shadow var(--transition-fast),
     transform var(--transition-fast);
 }
 
+/* Email: neutral, with a light (white in dark mode) border */
+.card[data-platform="email"] {
+  --brand-border: linear-gradient(
+    color-mix(in oklch, var(--color-text) 35%, transparent),
+    color-mix(in oklch, var(--color-text) 35%, transparent)
+  );
+}
+
+.card[data-platform="linkedin"] {
+  --brand: #0a66c2;
+  --brand-fill: #0a66c2;
+  --brand-on-fill: #fff;
+  --brand-border: linear-gradient(#0a66c2, #0a66c2);
+}
+
+.card[data-platform="github"] {
+  --brand: #24292f;
+  --brand-fill: #24292f;
+  --brand-on-fill: #fff;
+  --brand-border: linear-gradient(#24292f, #24292f);
+}
+
+.card[data-platform="instagram"] {
+  --brand: #d62976;
+  --brand-fill: linear-gradient(
+    45deg,
+    #feda75,
+    #fa7e1e 25%,
+    #d62976 50%,
+    #962fbf 75%,
+    #4f5bd5
+  );
+  --brand-on-fill: #fff;
+  --brand-border: linear-gradient(
+    45deg,
+    #feda75,
+    #fa7e1e 25%,
+    #d62976 50%,
+    #962fbf 75%,
+    #4f5bd5
+  );
+}
+
+/* Dark theme: lighter brand colours so they read on the dark surface */
+:global(:root[data-theme="dark"]) .card[data-platform="linkedin"] {
+  --brand: #70b5f9;
+}
+
+:global(:root[data-theme="dark"]) .card[data-platform="github"] {
+  --brand: #f0f6fc;
+  --brand-fill: #f0f6fc;
+  --brand-on-fill: #24292f;
+  --brand-border: linear-gradient(#f0f6fc, #f0f6fc);
+}
+
+:global(:root[data-theme="dark"]) .card[data-platform="instagram"] {
+  --brand: #f472b6;
+}
+
 @media (hover: hover) {
   .card:hover {
-    border-color: color-mix(
-      in oklch,
-      var(--color-accent) 40%,
-      var(--color-border)
-    );
-    box-shadow: var(--shadow-md);
+    box-shadow:
+      var(--shadow-md),
+      0 0 0 3px color-mix(in oklch, var(--brand) 18%, transparent);
     transform: translateY(-2px);
   }
 }
@@ -63,20 +138,51 @@
   outline-offset: 2px;
 }
 
+/* Oversized, fading platform logo behind the content */
+.backdrop {
+  position: absolute;
+  right: -2rem;
+  bottom: -3.5rem;
+  z-index: -1;
+  width: 10rem;
+  height: 10rem;
+  color: var(--brand);
+  opacity: 0.1;
+  stroke-width: 1.5;
+  transform: rotate(-12deg);
+  mask-image: radial-gradient(circle at 35% 35%, #000 20%, transparent 75%);
+  pointer-events: none;
+}
+
+.top {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.heading {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+/* Platform logo tile in the top right */
 .icon {
   display: grid;
+  flex-shrink: 0;
   place-items: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  margin-bottom: var(--space-3);
+  width: 2.75rem;
+  height: 2.75rem;
   border-radius: var(--radius-md);
-  background-color: var(--color-accent-soft);
-  color: var(--color-accent);
+  background: var(--brand-fill);
+  color: var(--brand-on-fill);
 }
 
 .icon svg {
-  width: 1.25rem;
-  height: 1.25rem;
+  width: 1.375rem;
+  height: 1.375rem;
 }
 
 .cardTitle {
@@ -112,8 +218,9 @@
 .handle {
   font-family: var(--font-mono);
   font-size: var(--text-sm);
-  color: var(--color-accent);
-  overflow-wrap: anywhere;
+  color: var(--brand);
+  /* Wrap only if it really doesn't fit (e.g. a very narrow phone) */
+  overflow-wrap: break-word;
 }
 
 .note {
@@ -123,13 +230,12 @@
 
 /* Sits above the card-wide link so it can be clicked on its own */
 .copy {
-  position: absolute;
-  top: var(--space-5);
-  right: var(--space-5);
+  position: relative;
   z-index: 1;
   display: inline-flex;
   gap: var(--space-1);
   align-items: center;
+  align-self: flex-start;
   padding: var(--space-1) var(--space-3);
   border: 1px solid var(--color-border);
   border-radius: 999px;
@@ -141,7 +247,8 @@
   cursor: pointer;
   transition:
     color var(--transition-fast),
-    border-color var(--transition-fast);
+    border-color var(--transition-fast),
+    transform var(--transition-fast);
 }
 
 .copy[hidden] {
@@ -150,8 +257,8 @@
 
 @media (hover: hover) {
   .copy:hover {
-    border-color: var(--color-accent);
-    color: var(--color-accent);
+    border-color: var(--color-text-muted);
+    color: var(--color-text);
   }
 }
 

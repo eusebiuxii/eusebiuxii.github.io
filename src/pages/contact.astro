@@ -1,27 +1,25 @@
 ---
-import {
-  Briefcase,
-  Camera,
-  Code,
-  Copy,
-  ExternalLink,
-  Mail,
-  MapPin,
-} from "lucide-react"
+import { Copy, ExternalLink, MapPin } from "lucide-react"
 import BaseLayout from "@/layouts/BaseLayout.astro"
 import PageHeader from "@/components/PageHeader/PageHeader.astro"
+import PlatformIcon, {
+  type Platform,
+} from "@/components/PlatformIcon/PlatformIcon.astro"
 import { site } from "@/site.config"
 import styles from "./contact.module.css"
 
 // Socials with a `card` in site.config.ts
 const cards = site.socials.flatMap((social) =>
-  "card" in social ? [{ ...social, ...social.card }] : []
+  "card" in social
+    ? [
+        {
+          ...social,
+          ...social.card,
+          platform: social.label.toLowerCase() as Platform,
+        },
+      ]
+    : []
 )
-const icons: Record<string, typeof Mail> = {
-  LinkedIn: Briefcase,
-  GitHub: Code,
-  Instagram: Camera,
-}
 
 const topics = [
   "Job opportunities",
@@ -50,19 +48,26 @@ const topics = [
     </PageHeader>
 
     <ul class={styles.cards}>
-      <li class={styles.card}>
-        <span class={styles.icon} aria-hidden="true"><Mail /></span>
-        <h2 class={styles.cardTitle}>
-          {/* href is filled in by the script below (spam protection) */}
-          <a
-            class={styles.cardLink}
-            data-email-user={site.email.user}
-            data-email-domain={site.email.domain}>Email</a
-          >
-        </h2>
-        <p class={styles.handle} data-email-text>
-          Turn on JavaScript to see my address
-        </p>
+      <li class={styles.card} data-platform="email">
+        <PlatformIcon name="email" class={styles.backdrop} />
+        <div class={styles.top}>
+          <div class={styles.heading}>
+            <h2 class={styles.cardTitle}>
+              {/* href is filled in by the script below (spam protection) */}
+              <a
+                class={styles.cardLink}
+                data-email-user={site.email.user}
+                data-email-domain={site.email.domain}>Email</a
+              >
+            </h2>
+            <p class={styles.handle} data-email-text>
+              Turn on JavaScript to see my address
+            </p>
+          </div>
+          <span class={styles.icon}>
+            <PlatformIcon name="email" />
+          </span>
+        </div>
         <p class={styles.note}>
           Opens your email app with my address filled in.
         </p>
@@ -74,37 +79,39 @@ const topics = [
           aria-label="Copy email address"
         >
           <Copy />
-          <span data-copy-label>Copy</span>
+          <span data-copy-label>Copy address</span>
         </button>
       </li>
 
       {
-        cards.map((card) => {
-          const Icon = icons[card.label] ?? ExternalLink
-          return (
-            <li class={styles.card}>
-              <span class={styles.icon} aria-hidden="true">
-                <Icon />
+        cards.map((card) => (
+          <li class={styles.card} data-platform={card.platform}>
+            <PlatformIcon name={card.platform} class={styles.backdrop} />
+            <div class={styles.top}>
+              <div class={styles.heading}>
+                <h2 class={styles.cardTitle}>
+                  <a
+                    class={styles.cardLink}
+                    href={card.href}
+                    target="_blank"
+                    rel="me noopener"
+                  >
+                    {card.label}
+                    <ExternalLink
+                      className={styles.external}
+                      aria-hidden="true"
+                    />
+                  </a>
+                </h2>
+                <p class={styles.handle}>{card.handle}</p>
+              </div>
+              <span class={styles.icon}>
+                <PlatformIcon name={card.platform} />
               </span>
-              <h2 class={styles.cardTitle}>
-                <a
-                  class={styles.cardLink}
-                  href={card.href}
-                  target="_blank"
-                  rel="me noopener"
-                >
-                  {card.label}
-                  <ExternalLink
-                    className={styles.external}
-                    aria-hidden="true"
-                  />
-                </a>
-              </h2>
-              <p class={styles.handle}>{card.handle}</p>
-              <p class={styles.note}>{card.note}</p>
-            </li>
-          )
-        })
+            </div>
+            <p class={styles.note}>{card.note}</p>
+          </li>
+        ))
       }
     </ul>
 
@@ -177,7 +184,10 @@ const topics = [
         label.textContent = "Couldn't copy"
       }
       clearTimeout(reset)
-      reset = window.setTimeout(() => (label.textContent = "Copy"), 2000)
+      reset = window.setTimeout(
+        () => (label.textContent = "Copy address"),
+        2000
+      )
     })
   }
 </script>
