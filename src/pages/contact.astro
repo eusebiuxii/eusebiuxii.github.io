@@ -1,0 +1,183 @@
+---
+import {
+  Briefcase,
+  Camera,
+  Code,
+  Copy,
+  ExternalLink,
+  Mail,
+  MapPin,
+} from "lucide-react"
+import BaseLayout from "@/layouts/BaseLayout.astro"
+import PageHeader from "@/components/PageHeader/PageHeader.astro"
+import { site } from "@/site.config"
+import styles from "./contact.module.css"
+
+// Socials with a `card` in site.config.ts
+const cards = site.socials.flatMap((social) =>
+  "card" in social ? [{ ...social, ...social.card }] : []
+)
+const icons: Record<string, typeof Mail> = {
+  LinkedIn: Briefcase,
+  GitHub: Code,
+  Instagram: Camera,
+}
+
+const topics = [
+  "Job opportunities",
+  "Ideas for projects or collaborations",
+  "Questions about one of my guides or projects",
+]
+---
+
+<BaseLayout
+  title="Contact"
+  description="Get in touch by email, or find me on LinkedIn, GitHub and Instagram."
+>
+  <div class="container">
+    <PageHeader
+      title="Contact"
+      description="Got a job opportunity, an idea for a project, or a question about one of my guides? I'd love to hear from you."
+    >
+      {
+        site.openToWork && (
+          <p class={styles.badge}>
+            <span class={styles.badgeDot} aria-hidden="true" />
+            Open to work
+          </p>
+        )
+      }
+    </PageHeader>
+
+    <ul class={styles.cards}>
+      <li class={styles.card}>
+        <span class={styles.icon} aria-hidden="true"><Mail /></span>
+        <h2 class={styles.cardTitle}>
+          {/* href is filled in by the script below (spam protection) */}
+          <a
+            class={styles.cardLink}
+            data-email-user={site.email.user}
+            data-email-domain={site.email.domain}>Email</a
+          >
+        </h2>
+        <p class={styles.handle} data-email-text>
+          Turn on JavaScript to see my address
+        </p>
+        <p class={styles.note}>
+          Opens your email app with my address filled in.
+        </p>
+        <button
+          class={styles.copy}
+          type="button"
+          data-email-copy
+          hidden
+          aria-label="Copy email address"
+        >
+          <Copy />
+          <span data-copy-label>Copy</span>
+        </button>
+      </li>
+
+      {
+        cards.map((card) => {
+          const Icon = icons[card.label] ?? ExternalLink
+          return (
+            <li class={styles.card}>
+              <span class={styles.icon} aria-hidden="true">
+                <Icon />
+              </span>
+              <h2 class={styles.cardTitle}>
+                <a
+                  class={styles.cardLink}
+                  href={card.href}
+                  target="_blank"
+                  rel="me noopener"
+                >
+                  {card.label}
+                  <ExternalLink
+                    className={styles.external}
+                    aria-hidden="true"
+                  />
+                </a>
+              </h2>
+              <p class={styles.handle}>{card.handle}</p>
+              <p class={styles.note}>{card.note}</p>
+            </li>
+          )
+        })
+      }
+    </ul>
+
+    <section class={styles.details} aria-labelledby="details-heading">
+      <h2 id="details-heading" class={styles.detailsTitle}>Good to know</h2>
+      <dl class={styles.list}>
+        <div>
+          <dt>Happy to hear about</dt>
+          <dd>
+            <ul>{topics.map((topic) => <li>{topic}</li>)}</ul>
+          </dd>
+        </div>
+        <div>
+          <dt>Based in</dt>
+          <dd class={styles.location}>
+            <MapPin aria-hidden="true" />
+            {site.location}
+          </dd>
+        </div>
+        <div>
+          <dt>Replies</dt>
+          <dd>I read every genuine message and reply as soon as I can.</dd>
+        </div>
+      </dl>
+    </section>
+  </div>
+</BaseLayout>
+
+<script>
+  /*
+   * Same spam protection as the footer: the address is only joined in the
+   * browser. Also wires up the copy button.
+   */
+  const link = document.querySelector<HTMLAnchorElement>("[data-email-user]")
+  const text = document.querySelector<HTMLElement>("[data-email-text]")
+  const copy = document.querySelector<HTMLButtonElement>("[data-email-copy]")
+  const label = copy?.querySelector<HTMLElement>("[data-copy-label]")
+
+  async function writeClipboard(value: string) {
+    try {
+      await navigator.clipboard.writeText(value)
+    } catch {
+      // Clipboard API needs HTTPS (or localhost); fall back to the old way
+      const area = document.createElement("textarea")
+      area.value = value
+      area.setAttribute("readonly", "")
+      area.style.position = "fixed"
+      area.style.opacity = "0"
+      document.body.append(area)
+      area.select()
+      const copied = document.execCommand("copy")
+      area.remove()
+      if (!copied) throw new Error("Copy failed")
+    }
+  }
+
+  if (link && text && copy && label) {
+    const { emailUser, emailDomain } = link.dataset
+    const address = `${emailUser}@${emailDomain}`
+    link.href = `mailto:${address}`
+    text.textContent = address
+    copy.hidden = false
+
+    let reset = 0
+    copy.addEventListener("click", async () => {
+      try {
+        await writeClipboard(address)
+        label.textContent = "Copied"
+      } catch {
+        label.textContent = "Couldn't copy"
+      }
+      clearTimeout(reset)
+      reset = window.setTimeout(() => (label.textContent = "Copy"), 2000)
+    })
+  }
+</script>

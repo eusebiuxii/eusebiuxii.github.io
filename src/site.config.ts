@@ -12,14 +12,40 @@ export const site = {
     { label: "Guides", href: "/guides" },
     { label: "About", href: "/about" },
   ],
-  // Highlighted call-to-action at the end of the nav (points at the footer)
-  contact: { label: "Contact", href: "#contact" },
+  // Highlighted call-to-action at the end of the nav
+  contact: { label: "Contact", href: "/contact" },
   // Stored in two parts and joined by a script in the browser, so the full
   // address never appears in the HTML for spam bots to scrape (see Footer)
   email: { user: "eusebiuxii", domain: "proton.me" },
+  // Footer links. Ones with a `card` also get a card on the Contact page.
   socials: [
-    { label: "LinkedIn", href: "https://www.linkedin.com/in/eusebiuxii" },
-    { label: "Instagram", href: "https://www.instagram.com/eusebiuxii/" },
-    { label: "GitHub", href: "https://github.com/eusebiuxii" },
+    {
+      label: "LinkedIn",
+      href: "https://www.linkedin.com/in/eusebiuxii",
+      card: {
+        handle: "in/eusebiuxii",
+        note: "My work history, and the place for professional enquiries.",
+      },
+    },
+    {
+      label: "Instagram",
+      href: "https://www.instagram.com/eusebiuxii/",
+      card: {
+        handle: "@eusebiuxii",
+        note: "Photos and a more personal side of me.",
+      },
+    },
+    {
+      label: "GitHub",
+      href: "https://github.com/eusebiuxii",
+      card: {
+        handle: "eusebiuxii",
+        note: "Source code for my projects, including my GNOME extensions.",
+      },
+    },
   ],
+  // Contact page details
+  location: "Manchester, UK",
+  // Shows an "Open to work" badge on the Contact page when true
+  openToWork: false,
 } as const
