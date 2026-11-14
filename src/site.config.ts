@@ -45,7 +45,8 @@ export const site = {
     },
   ],
   // Contact page details
-  location: "Manchester, UK",
+  // Shown on the Contact page; the coordinates place the pin in maps apps
+  location: { name: "Manchester, UK", lat: 53.4808, lng: -2.2426 },
   // Shows an "Open to work" badge on the Contact page when true
   openToWork: false,
 } as const

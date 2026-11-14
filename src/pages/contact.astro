@@ -21,6 +21,18 @@ const cards = site.socials.flatMap((social) =>
     : []
 )
 
+// Map links for the location. Google Maps works everywhere, so it's the
+// default; the script swaps in the platform's own maps app where it can.
+const { location } = site
+const place = encodeURIComponent(location.name)
+const coords = `${location.lat},${location.lng}`
+const maps = {
+  google: `https://www.google.com/maps/search/?api=1&query=${coords}`,
+  apple: `https://maps.apple.com/?ll=${coords}&q=${place}`,
+  // Android's geo: link lets the user's chosen maps app open it
+  android: `geo:${coords}?q=${coords}(${place})`,
+}
+
 const topics = [
   "Job opportunities",
   "Ideas for projects or collaborations",
@@ -126,9 +138,19 @@ const topics = [
         </div>
         <div>
           <dt>Based in</dt>
-          <dd class={styles.location}>
-            <MapPin aria-hidden="true" />
-            {site.location}
+          <dd>
+            <a
+              class={styles.location}
+              href={maps.google}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-map-apple={maps.apple}
+              data-map-android={maps.android}
+            >
+              <MapPin aria-hidden="true" />
+              {location.name}
+              <ExternalLink className={styles.external} aria-hidden="true" />
+            </a>
           </dd>
         </div>
         <div>
@@ -141,6 +163,24 @@ const topics = [
 </BaseLayout>
 
 <script>
+  /*
+   * Location link: open the visitor's own maps app. Android gets a geo: link
+   * (opens their default maps app, or asks which one), Apple devices get
+   * Apple Maps, everyone else keeps the Google Maps link.
+   */
+  const mapLink = document.querySelector<HTMLAnchorElement>("[data-map-apple]")
+  if (mapLink) {
+    const ua = navigator.userAgent
+    // iPadOS reports itself as "Macintosh", which also gets Apple Maps
+    const isApple = /iPhone|iPad|iPod|Macintosh/.test(ua)
+    if (/Android/.test(ua)) {
+      mapLink.href = mapLink.dataset.mapAndroid!
+      mapLink.removeAttribute("target")
+    } else if (isApple) {
+      mapLink.href = mapLink.dataset.mapApple!
+    }
+  }
+
   /*
    * Same spam protection as the footer: the address is only joined in the
    * browser. Also wires up the copy button.
