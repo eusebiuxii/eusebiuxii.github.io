@@ -2,6 +2,7 @@
 title: Building a home server with Proxmox
 description: How I built a budget home server from used parts, what runs on it, and why I chose OpenCloud over Nextcloud and Seafile.
 date: 2026-11-13
+updated: 2026-11-15
 tags: [linux, proxmox, self-hosting, home-server]
 difficulty: intermediate
 cover: ./covers/home-server.webp
@@ -413,6 +414,55 @@ with up to 10 GB of RAM. That's enough for one or two game servers at a time.
 the moment, with Minecraft and Enshrouded planned. Each game only needs its
 own ports forwarded on the router to the VM, for example UDP 2456–2457 for
 Valheim.
+
+### Pausing servers nobody is playing on
+
+Even with nobody online, a game server keeps running its world: idle Valheim
+used about 5% of a CPU core around the clock. So an empty server now gets
+**frozen**, and it wakes up the moment someone tries to join:
+
+- **No traffic on the game's ports for 15 minutes:** the container is paused
+  with `docker pause`. It uses 0% CPU, but the world stays loaded in memory.
+- **The first packet of a join attempt** unpauses it in under two seconds.
+  Players don't notice anything, and there's no failed first connection like
+  there would be if the server had to start from scratch.
+
+[Minecraft](https://github.com/itzg/docker-minecraft-server) has this built
+in. These lines in the container's environment turn it on:
+
+```yaml
+ENABLE_AUTOPAUSE: "TRUE"
+AUTOPAUSE_TIMEOUT_EST: "900" # pause after 15 minutes with no players
+MAX_TICK_TIME: "-1" # required with autopause
+```
+
+Valheim and Enshrouded have nothing like it, so a small Python service on
+the VM does the same job. It counts packets on each game's ports with an
+[nftables](https://wiki.nftables.org) rule that runs before Docker's
+forwarding:
+
+```text
+table inet gamewake {
+  counter valheim { }
+  chain pre {
+    type filter hook prerouting priority raw; policy accept;
+    udp dport { 2456, 2457 } counter name valheim
+  }
+}
+```
+
+Every two seconds it reads the counter. If the count went up while the game
+is paused, it runs `docker unpause`. If it hasn't changed for 15 minutes, it
+runs `docker pause`. It never starts a stopped server, and it unpauses
+everything before the VM shuts down, so worlds always save cleanly.
+
+> **Pitfall:** pausing frees CPU, not memory. The VM keeps its RAM, and a
+> frozen world also stops its clock: no day/night cycle and nothing grows
+> until someone joins.
+
+> **Good to know:** stopping a paused container (`docker stop` or
+> `docker compose down`) is safe. Docker unpauses it first and sends the
+> normal shutdown signal, so the game still saves.
 
 ## 8. Backups
 
