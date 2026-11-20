@@ -52,7 +52,7 @@ the change is reverted, or nobody answers before the countdown ends, the screens
 go back and the audio and commands are left alone. They only run once the change
 is kept. The dialog can be turned off for instant switching.
 
-Setups whose screens aren't plugged in, such as when the TV is off, are greyed
+Setups whose screens aren't plugged in, such as when the TV is unplugged, are greyed
 out in the menu or can be hidden completely, so you can't switch to a layout
 with no visible screen.
 
@@ -60,6 +60,13 @@ Screens are recognised by the make, model and serial number they report, not by
 the port they are plugged into. A setup keeps working if a cable moves to a
 different port, and the port name is only used to tell two identical monitors
 apart.
+
+### Keyboard shortcuts
+
+Each setup can have its own keyboard shortcut, such as `Super+F1` for the desk,
+so switching doesn't even need the Quick Settings menu. It is especially handy
+after turning the TV off with its remote: one key press brings the desk screens
+back without turning the TV on again to reach the menu.
 
 ### Audio that waits for the TV
 
